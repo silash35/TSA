@@ -1,0 +1,79 @@
+from typing import Final
+
+import numpy as np
+
+ng: Final = 3
+
+Rg: Final = 8.314
+Rp: Final = 1e-3
+roap: Final = 549
+Cps: Final = 1200
+epsb: Final = 0.352
+rob: Final = (1 - epsb) * roap
+apm: Final = 3 / Rp
+dp: Final = 2 * Rp
+L: Final = 0.323
+Dw: Final = 0.0211
+row: Final = 8238
+Cpw: Final = 500
+alfaw: Final = 457
+alfawl: Final = 499
+Qfeed_SLPM: Final = 0.43
+bed_area: Final = 3.1415 * (Dw / 2) ** 2
+nocycles: Final = 20
+betapeq: Final = 0.04
+betadepco: Final = 0.07
+betablow: Final = 0.018
+dax: Final = 6.9e-5
+kf: Final = 2.0e-2
+λ: Final = 0.6
+hf: Final = 128
+visc: Final = 1.7e-5
+U: Final = 37
+hw: Final = 50
+Cpmix: Final = 31
+Cvmix: Final = 23
+Mwi: Final = np.array([4.400e-02, 2.8e-02, 2e-3])
+dpi: Final = np.array([7.7e-7, 9.8e-7, 2.5e-6])
+MDH1: Final = np.array([21885, 13351, 35260])
+kinf: Final = np.array([5.78e-5, 3.36e-4, 9.39e-7])
+qsat: Final = np.array([8.509, 3.482, 0.294])
+Cvi: Final = np.array([29.8, 20.6, 12.5])
+eta: Final = 0.85
+# gama: Final = cpmix / cvmix
+
+yin_feed: Final = np.array([0.3, 0.22, 0.48])
+yin_peq: Final = np.array([0, 1, 0])
+yin_press: Final = np.array([0, 0, 1])
+yin_purge: Final = np.array([0, 0.32, 0.68])
+yin_rinse: Final = np.array([1, 0, 0])
+yin_rr: Final = np.array([1, 0, 0])
+Phigh: Final = 4.8e5
+Plow: Final = 0.55e5
+Pblow: Final = 1e5
+Prinse: Final = 1e5
+Ppeqd: Final = 33e5
+Ppeqp: Final = 11e5
+Ppurge: Final = 1e5
+Ppress: Final = 4e5
+Pdepco: Final = 1e5
+Performance: Final = 100
+Pinter1: Final = 1.5e5
+Pinter2: Final = 11e5
+qrr: Final = 1e-5
+qeq: Final = 0.3
+countcycle: Final = 1
+Qn_r: Final = 0.57
+Qn_p: Final = 0.305
+Tfeed: Final = 679.462
+Tpress: Final = 0
+Teq: Final = 0
+Tpurge: Final = 80
+Trinse: Final = 187
+Tdepco: Final = 0
+Tinlet: Final = 305.059
+
+u0inlet: Final = (Qfeed_SLPM * 100000 / Phigh * Tinlet / 273.15 / 60 / 1000) / bed_area
+Qfeed: Final = u0inlet * bed_area
+Cinlet: Final = Phigh / Rg / Tinlet
+Tinf: Final = Tinlet
