@@ -1,0 +1,1004 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<gMB:GpromsProject xmlns:gMB="http://www.psenterprise.com/gMB" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.psenterprise.com/gMB http://www.psenterprise.com/gPJ.xsd" version="10" gMB_Version="4.2.0" gMB_Build="54965">
+  <Properties>
+    <BooleanProperty name="LibraryProject">false</BooleanProperty>
+    <BooleanProperty name="GrainTimestamps">true</BooleanProperty>
+    <BooleanProperty name="DisplayEmptyGroups">true</BooleanProperty>
+    <StringProperty name="CreatedBy">teste</StringProperty>
+    <DateProperty name="CreatedDate">2025-08-21T00:43:49Z</DateProperty>
+    <StringProperty name="ModifiedBy">teste</StringProperty>
+    <DateProperty name="ModifiedDate">2025-10-26T20:47:09Z</DateProperty>
+  </Properties>
+  <ImageCache>
+    <Image res="defaultModelIcon"/>
+  </ImageCache>
+  <ModelReferenceCache>
+  </ModelReferenceCache>
+  <Group name="Variable Types">
+    <VariableTypeEntity name="ads_concentration" version="2">
+      <Properties>
+        <StringProperty name="CreatedBy">teste</StringProperty>
+        <DateProperty name="CreatedDate">2025-08-21T01:01:07Z</DateProperty>
+        <StringProperty name="ModifiedBy">teste</StringProperty>
+        <DateProperty name="ModifiedDate">2025-08-21T01:01:33Z</DateProperty>
+        <BooleanProperty name="Win32LineSeparation">false</BooleanProperty>
+      </Properties>
+      <DefaultValue>-1.0E-4</DefaultValue>
+      <MinValue>-1.0</MinValue>
+      <MaxValue>10.0</MaxValue>
+      <UomRef name="no_unit"/>
+    </VariableTypeEntity>
+    <VariableTypeEntity name="ads_parameters" version="2">
+      <Properties>
+        <StringProperty name="CreatedBy">teste</StringProperty>
+        <DateProperty name="CreatedDate">2025-08-21T01:01:54Z</DateProperty>
+        <StringProperty name="ModifiedBy">teste</StringProperty>
+        <DateProperty name="ModifiedDate">2025-08-21T01:01:55Z</DateProperty>
+        <BooleanProperty name="Win32LineSeparation">false</BooleanProperty>
+      </Properties>
+      <DefaultValue>0.5</DefaultValue>
+      <MinValue>-1.0E30</MinValue>
+      <MaxValue>1.0E30</MaxValue>
+      <UomRef name="no_unit"/>
+    </VariableTypeEntity>
+    <VariableTypeEntity name="concentration" version="2">
+      <Properties>
+        <StringProperty name="CreatedBy">teste</StringProperty>
+        <DateProperty name="CreatedDate">2025-08-21T01:02:18Z</DateProperty>
+        <StringProperty name="ModifiedBy">teste</StringProperty>
+        <DateProperty name="ModifiedDate">2025-08-21T01:02:18Z</DateProperty>
+        <BooleanProperty name="Win32LineSeparation">false</BooleanProperty>
+      </Properties>
+      <DefaultValue>48.0</DefaultValue>
+      <MinValue>-200.0</MinValue>
+      <MaxValue>1.0E30</MaxValue>
+      <UomRef name="no_unit"/>
+    </VariableTypeEntity>
+    <VariableTypeEntity name="flowrate" version="2">
+      <Properties>
+        <StringProperty name="CreatedBy">teste</StringProperty>
+        <DateProperty name="CreatedDate">2025-08-21T01:02:54Z</DateProperty>
+        <StringProperty name="ModifiedBy">teste</StringProperty>
+        <DateProperty name="ModifiedDate">2025-08-21T01:02:54Z</DateProperty>
+        <BooleanProperty name="Win32LineSeparation">false</BooleanProperty>
+      </Properties>
+      <DefaultValue>0.15</DefaultValue>
+      <MinValue>-1.0E30</MinValue>
+      <MaxValue>1.0E30</MaxValue>
+      <UomRef name="no_unit"/>
+    </VariableTypeEntity>
+    <VariableTypeEntity name="molarflux" version="2">
+      <Properties>
+        <StringProperty name="CreatedBy">teste</StringProperty>
+        <DateProperty name="CreatedDate">2025-08-21T01:03:48Z</DateProperty>
+        <StringProperty name="ModifiedBy">teste</StringProperty>
+        <DateProperty name="ModifiedDate">2025-08-21T01:03:48Z</DateProperty>
+        <BooleanProperty name="Win32LineSeparation">false</BooleanProperty>
+      </Properties>
+      <DefaultValue>0.0</DefaultValue>
+      <MinValue>-1.0E30</MinValue>
+      <MaxValue>1.0E30</MaxValue>
+      <UomRef name="no_unit"/>
+    </VariableTypeEntity>
+    <VariableTypeEntity name="molar_fraction" version="2">
+      <Properties>
+        <StringProperty name="CreatedBy">teste</StringProperty>
+        <DateProperty name="CreatedDate">2025-08-21T01:04:53Z</DateProperty>
+        <StringProperty name="ModifiedBy">teste</StringProperty>
+        <DateProperty name="ModifiedDate">2025-08-21T01:04:53Z</DateProperty>
+        <BooleanProperty name="Win32LineSeparation">false</BooleanProperty>
+      </Properties>
+      <DefaultValue>0.0</DefaultValue>
+      <MinValue>-1.0</MinValue>
+      <MaxValue>2.0</MaxValue>
+      <UomRef name="no_unit"/>
+    </VariableTypeEntity>
+    <VariableTypeEntity name="mole_weight" version="2">
+      <Properties>
+        <StringProperty name="CreatedBy">teste</StringProperty>
+        <DateProperty name="CreatedDate">2025-08-21T01:05:12Z</DateProperty>
+        <StringProperty name="ModifiedBy">teste</StringProperty>
+        <DateProperty name="ModifiedDate">2025-08-21T01:05:13Z</DateProperty>
+        <BooleanProperty name="Win32LineSeparation">false</BooleanProperty>
+      </Properties>
+      <DefaultValue>0.002</DefaultValue>
+      <MinValue>0.0</MinValue>
+      <MaxValue>100.0</MaxValue>
+      <UomRef name="no_unit"/>
+    </VariableTypeEntity>
+    <VariableTypeEntity name="notype" version="2">
+      <Properties>
+        <StringProperty name="CreatedBy">teste</StringProperty>
+        <DateProperty name="CreatedDate">2025-08-21T01:05:54Z</DateProperty>
+        <StringProperty name="ModifiedBy">teste</StringProperty>
+        <DateProperty name="ModifiedDate">2025-08-21T01:05:54Z</DateProperty>
+        <BooleanProperty name="Win32LineSeparation">false</BooleanProperty>
+      </Properties>
+      <DefaultValue>1.0</DefaultValue>
+      <MinValue>-1.0E30</MinValue>
+      <MaxValue>1.0E30</MaxValue>
+      <UomRef name="no_unit"/>
+    </VariableTypeEntity>
+    <VariableTypeEntity name="pressure" version="2">
+      <Properties>
+        <StringProperty name="CreatedBy">teste</StringProperty>
+        <DateProperty name="CreatedDate">2025-08-21T01:06:20Z</DateProperty>
+        <StringProperty name="ModifiedBy">teste</StringProperty>
+        <DateProperty name="ModifiedDate">2025-08-21T01:06:20Z</DateProperty>
+        <BooleanProperty name="Win32LineSeparation">false</BooleanProperty>
+      </Properties>
+      <DefaultValue>150000.0</DefaultValue>
+      <MinValue>-1.0E30</MinValue>
+      <MaxValue>1.0E30</MaxValue>
+      <UomRef name="no_unit"/>
+    </VariableTypeEntity>
+    <VariableTypeEntity name="temperature" version="2">
+      <Properties>
+        <StringProperty name="CreatedBy">teste</StringProperty>
+        <DateProperty name="CreatedDate">2025-08-21T01:37:28Z</DateProperty>
+        <StringProperty name="ModifiedBy">teste</StringProperty>
+        <DateProperty name="ModifiedDate">2025-08-21T01:37:28Z</DateProperty>
+        <BooleanProperty name="Win32LineSeparation">false</BooleanProperty>
+      </Properties>
+      <DefaultValue>373.0</DefaultValue>
+      <MinValue>273.0</MinValue>
+      <MaxValue>700.0</MaxValue>
+      <UomRef name="no_unit"/>
+    </VariableTypeEntity>
+    <VariableTypeEntity name="tempo" version="2">
+      <Properties>
+        <StringProperty name="CreatedBy">teste</StringProperty>
+        <DateProperty name="CreatedDate">2025-08-21T01:38:13Z</DateProperty>
+        <StringProperty name="ModifiedBy">teste</StringProperty>
+        <DateProperty name="ModifiedDate">2025-08-21T01:38:13Z</DateProperty>
+        <BooleanProperty name="Win32LineSeparation">false</BooleanProperty>
+      </Properties>
+      <DefaultValue>0.0</DefaultValue>
+      <MinValue>0.0</MinValue>
+      <MaxValue>1.0E30</MaxValue>
+      <UomRef name="no_unit"/>
+    </VariableTypeEntity>
+    <VariableTypeEntity name="velocity" version="2">
+      <Properties>
+        <StringProperty name="CreatedBy">teste</StringProperty>
+        <DateProperty name="CreatedDate">2025-08-21T01:38:49Z</DateProperty>
+        <StringProperty name="ModifiedBy">teste</StringProperty>
+        <DateProperty name="ModifiedDate">2025-08-21T01:38:49Z</DateProperty>
+        <BooleanProperty name="Win32LineSeparation">false</BooleanProperty>
+      </Properties>
+      <DefaultValue>0.045</DefaultValue>
+      <MinValue>-1.0E30</MinValue>
+      <MaxValue>1.0E30</MaxValue>
+      <UomRef name="no_unit"/>
+    </VariableTypeEntity>
+  </Group>
+  <Group name="Stream Types">
+  </Group>
+  <Group name="Connection Types">
+  </Group>
+  <Group name="Models">
+    <ModelEntity name="Fixed_bed_Lang_1LDF" type="psenterprise.gpromskit.models.ModelEntity" version="8" UnitNameShown="true" UnitModelShown="false">
+      <Properties>
+        <StringProperty name="CreatedBy">teste</StringProperty>
+        <DateProperty name="CreatedDate">2025-08-21T01:39:31Z</DateProperty>
+        <StringProperty name="ModifiedBy">teste</StringProperty>
+        <DateProperty name="ModifiedDate">2025-10-26T20:47:09Z</DateProperty>
+        <BooleanProperty name="Win32LineSeparation">false</BooleanProperty>
+        <StringProperty name="DefaultTab">topology</StringProperty>
+        <StringProperty name="DefaultCaseTab">reports</StringProperty>
+        <BooleanProperty name="DisplayedInPalette">false</BooleanProperty>
+        <BooleanProperty name="IncludeInitialisationProcedure">true</BooleanProperty>
+      </Properties>
+      <Icon>-199773695</Icon>
+      <FlowsheetLayers DefaultLayer="Layer 1">
+        <Layer name="Layer 1" visible="true" printed="true"/>
+      </FlowsheetLayers>
+      <UMS><![CDATA[]]></UMS>
+      <Body><![CDATA[PARAMETER
+
+nocomp      as   INTEGER                      
+nocycles    as   INTEGER                     
+kinf        as   ARRAY(nocomp) of REAL     
+qsat        as   ARRAY(nocomp) of REAL     
+MDH1        as   ARRAY(nocomp) of REAL      
+Mwi         as   ARRAY(nocomp) of REAL     
+cvi         as   ARRAY(nocomp) of REAL     
+Dpi         as   ARRAY(nocomp) of REAL     
+Rg          as   REAL                        
+apM         as   REAL                        
+Rp          as   REAL                                
+roap        as   REAL                        
+dp          as   REAL                        
+rob         as   REAL                                             
+Cps         as   REAL                        
+L           as   REAL                        
+Dw          as   REAL                         
+epsb        as   REAL                        
+row         as   REAL                        
+cpw         as   REAL                        
+alfaw       as   REAL                        
+alfawl      as   REAL                                              
+bed_area    as   REAL                                              
+Qfeed_SLPM  as   REAL
+Dax         as   REAL                        
+lambda      as   REAL                        
+U           as   REAL                                   
+Cpmix       as   REAL                        
+Cvmix       as   REAL                        
+kf          as   REAL                        
+hf          as   REAL                      
+hw          as   REAL                        
+visc        as   REAL                       
+betapeq     as   REAL
+betablow    as   REAL
+betadepco   as   REAL
+eta         as   REAL
+gama        as   REAL
+
+DISTRIBUTION_DOMAIN
+
+x as [0:L]
+
+VARIABLE
+
+keq              as   DISTRIBUTION(nocomp,x)   of    ads_parameters
+qasti            as   DISTRIBUTION(nocomp,x)   of    ads_concentration
+Pmpbar           as   DISTRIBUTION(nocomp,x)   of    pressure
+Cgi              as   DISTRIBUTION(nocomp,x)   of    concentration
+Csi              as   DISTRIBUTION(nocomp,x)   of    concentration
+yi               as   DISTRIBUTION(nocomp,x)   of    molar_fraction
+qi               as   DISTRIBUTION(nocomp,x)   of    ads_concentration
+yin_feed         as   DISTRIBUTION(nocomp)     of    molar_fraction
+yin_press        as   DISTRIBUTION(nocomp)     of    molar_fraction
+yin_rinse        as   DISTRIBUTION(nocomp)     of    molar_fraction
+yin_purge        as   DISTRIBUTION(nocomp)     of    molar_fraction
+yin_rr           as   DISTRIBUTION(nocomp)     of    molar_fraction
+yin_peq          as   DISTRIBUTION(nocomp)     of    molar_fraction
+Mw               as   DISTRIBUTION(x)          of    mole_weight
+u0               as   DISTRIBUTION(x)          of    velocity
+P                as   DISTRIBUTION(x)          of    pressure
+Cgt              as   DISTRIBUTION(x)          of    concentration
+Tg               as   DISTRIBUTION(x)          of    temperature
+Tp               as   DISTRIBUTION(x)          of    temperature
+Tw               as   DISTRIBUTION(x)          of    temperature
+AmountPress      as   ARRAY (nocomp)           of    molarflux
+AmountFeedin     as   ARRAY (nocomp)           of    molarflux
+AmountFeedout    as   ARRAY (nocomp)           of    molarflux
+AmountBlowdown   as   ARRAY (nocomp)           of    molarflux
+AmountRinsein    as   ARRAY (nocomp)           of    molarflux
+AmountRinseout   as   ARRAY (nocomp)           of    molarflux
+AmountPurgein    as   ARRAY (nocomp)           of    molarflux
+AmountPurgeout   as   ARRAY (nocomp)           of    molarflux
+AmountPreEQDep   as   ARRAY(nocomp)            of    molarflux
+AmountPreEQPre   as   ARRAY(nocomp)            of    molarflux
+AmountReceiveR   as   ARRAY(nocomp)            of    molarflux
+AmountDepco      as   ARRAY(nocomp)            of    molarflux
+molarexit        as   ARRAY(nocomp)            of    molarflux
+Performance      as   ARRAY(5)                 of    notype
+output           as   ARRAY(8)                 of    notype
+Qrr              as   flowrate
+Qeq              as   flowrate
+u0inlet          as   flowrate
+Qfeed            as   flowrate
+Qn_r             as   flowrate
+Qn_p             as   flowrate
+qrinse           as   flowrate
+qpurge           as   flowrate
+Ppurge           as   pressure
+Pdepco           as   pressure
+Ppress           as   pressure
+Pblow            as   pressure
+Prinse           as   pressure
+Ppeqd            as   pressure
+Ppeqp            as   pressure
+Phigh            as   pressure
+Plow             as   pressure
+Pinter1          as   pressure
+Pinter2          as   pressure
+Mytime           as   tempo
+Cinlet           as   concentration
+Tinf             as   temperature
+Tinlet           as   temperature
+Tpress           as   notype
+Tfeed            as   notype
+Teq              as   notype
+Tpurge           as   notype
+Tblow            as   notype
+Trinse           as   notype
+Ttotal           as   notype
+Tdepco           as   notype
+tbn_pre          as   notype
+tbn_blow         as   notype
+tbn_pg           as   notype
+tbn_peqd         as   notype
+tbn_peqp         as   notype
+tbn_rs           as   notype
+tbn_depco        as   notype
+countcycle       as   notype
+Total_vazao      as   notype
+SELECTOR
+
+OP_mode as (purge,feed,blowdown,rinse) default feed
+
+BOUNDARY
+
+CASE OP_mode of
+    WHEN feed:
+
+        # BULK
+        # material
+        for i:=1 to nocomp do
+            #inlet
+            yin_feed(i)*cinlet=cgi(i,0)-epsb*dax/u0inlet*partial(cgi(i,0),x);
+            #outlet
+            partial(cgi(i,L),x)=0;
+        end # for
+
+        #momentum
+        
+        If P(L)<Phigh then
+            u0(0)*cgt(0)=0.5*u0inlet*Cinlet;
+            u0(L)=0;
+        else
+            P(L)=Phigh;
+            u0(0)*cgt(0)=u0inlet*Cinlet;
+        end
+        
+        #Energy
+        Tinlet=Tg(0)-lambda/u0inlet/Cinlet/Cpmix*partial(Tg(0),x);
+        partial(Tg(L),x)=0;
+
+    WHEN blowdown:
+        
+	# BULK
+        # material
+        #P(0)=fgt(0)*Tg(0);
+        for i:=1 to nocomp do
+            #inlet
+            partial(cgi(i,L),x)=0;
+            #outlet
+            partial(cgi(i,0),x)=0;
+        end # for
+
+        #momentum
+        u0(L)=0;
+        P(0)=(Plow-Pblow)/tblow*(Mytime-(countcycle-1)*tTotal-tbn_blow)+Pblow;
+     
+        #Energy
+        partial(Tg(0),x)=0;
+        partial(Tg(L),x)=0;
+
+   WHEN purge:
+
+        # BULK
+        # material
+        #inlet (1)
+        for i:=1 to nocomp do
+            yin_purge(i)*Plow/Rg/Tinlet=cgi(i,L)-epsb*dax/(-Qpurge/bed_area)*partial(cgi(i,L),x);
+            #outlet (0)
+            partial(cgi(i,0),x)=0;
+        end # for
+
+        #momentum
+        u0(L)*cgt(L)=-Qpurge/bed_area*Plow/Rg/Tinlet;
+        P(0)=(Plow-Ppurge)*(1-exp(-0.5*(Mytime-(countcycle-1)*ttotal-tbn_pg)))+Ppurge;
+
+        #Energy
+        Tinlet=Tg(L)-lambda/(-Qpurge/bed_area)/(Plow/Rg/Tinlet)/Cpmix*partial(Tg(L),x);
+        partial(Tg(0),x)=0;
+
+   WHEN rinse:
+
+        # BULK
+        # material
+        #inlet (0)
+        for i:=1 to nocomp do
+            yin_rinse(i)*Phigh/Rg/Tinlet*Qrinse/bed_area
+            =cgi(i,0)*Qrinse/bed_area
+            -epsb*dax*partial(cgi(i,0),x);
+            #outlet (L)
+            partial(cgi(i,L),x)=0;
+        end # for
+
+        #momentum
+        u0(0)*cgt(0)=Qrinse/bed_area*Phigh/Rg/Tinlet;
+        P(L)=Phigh;
+
+        #Energy
+        Tinlet*Qrinse/bed_area*Phigh/Rg/Tinlet=
+        Tg(0)*Qrinse/bed_area*Phigh/Rg/Tinlet
+	-lambda/Cpmix*partial(Tg(0),x);
+        partial(Tg(L),x)=0;
+end #case
+
+
+
+
+EQUATION
+
+Ttotal    = Tfeed + Trinse + Tblow + tpurge;
+tbn_pg    = Tfeed + Trinse + Tblow;
+tbn_pre   = Tfeed + Tblow + Tpurge;
+tbn_blow  = Tfeed + Trinse;
+tbn_rs    = 0;
+tbn_peqd  = 0;
+tbn_peqp  = 0;
+tbn_depco = 0;
+Tblow     = (Plow-Phigh)/(-3158);
+$Mytime=1;
+
+for z:=0|+ to L|- do
+    for i:= 1 to nocomp do
+
+        partial(epsb*Dax*Cgt(z)*partial(yi(i,z),x),x)-partial(u0(z)*cgi(i,z),x)-epsb*$cgi(i,z)-
+        (1-epsb)*apM*kf*(cgi(i,z)-Csi(i,z))=0;
+
+    end # FOR i
+end # FOR z
+
+for z:=0 to L do
+    Cgt(z)=sigma(Cgi(,z));
+    for i:= 1 to nocomp do
+        Cgi(i,z)=yi(i,z)*Cgt(z);
+    end # FOR i 
+end # FOR z
+
+for z:=0|+ to L|- do
+
+        partial(lambda*partial(Tg(z),x),x)-u0(z)*Cgt(z)*Cpmix*partial(Tg(z),x)+epsb*Rg*Tg(z)*sigma($Cgi(,z))
+        -(1-epsb)*apM*hf*(Tg(z)-Tp(z))-4*hw/Dw*(Tg(z)-Tw(z))-epsb*Cgt(z)*Cvmix*$Tg(z)=0;
+
+end # FOR z
+
+for z:=0 to L do
+
+        -partial(P(z),x)=150*visc*(1-epsb)^2/epsb^3/dp^2*u0(z)+1.75*(1-epsb)/epsb^3/dp*Cgt(z)*Mw(z)*u0(z)*abs(u0(z));
+        Mw(z)=SIGMA(Mwi*yi(,z));
+
+end # FOR z
+
+for z:=0|+ to L|- do
+
+         P(z)=cgt(z)*Tg(z)*Rg;
+
+end # FOR z
+
+
+for z:=0 to L do
+    for i:=1 to nocomp do
+
+         $qi(i,z)=15*Dpi(i)/P(z)*Phigh/Rp^2*(qasti(i,z)-qi(i,z));
+
+    end # FOR i
+end # FOR z
+
+
+for z:=0 to L do
+    for i:=1 to nocomp do
+
+        Pmpbar(i,z)=(Csi(i,z))*Rg*Tp(z)/1e5;
+        keq(i,z)=kinf(i)*exp(MDH1(i)/Rg/Tp(z));
+        apM*kf*(cgi(i,z)-Csi(i,z))/roap=15*Dpi(i)/P(z)*Phigh/Rp^2*(qasti(i,z)-qi(i,z));
+
+    end # FOR i
+
+    for i:=1 to nocomp do
+
+            qasti(i,z)=qsat(i)*(keq(i,z)*Pmpbar(i,z))/(1+(sigma(abs(keq(1:nocomp,z)*Pmpbar(1:nocomp,z)))));
+
+    end  # FOR i
+end # FOR z
+
+for z:=0 to L do
+
+        (1-epsb)*(roap*sigma(qi(,z)*Cvi)+roap*Cps)*$Tp(z) = rob*(sigma(MDH1*$qi(,z)))+(1-epsb)*apM*hf*(Tg(z)-Tp(z));
+
+end # FOR z
+
+
+for z:=0 to L do
+
+    row*Cpw*$Tw(z)=alfaw*hw*(Tg(z)-Tw(z))-alfawl*U*(Tw(z)-Tinf);
+
+end # FOR z
+
+
+Total_vazao = sigma(AmountRinseout)+ sigma(Amountblowdown)+ sigma(AmountPurgeout)+ sigma(Amountfeedout);
+
+
+Qfeed   = u0inlet*bed_area;                                             
+u0inlet = (Qfeed_SLPM*100000/Phigh*Tinlet/273.15/60/1000)/bed_area;     
+Cinlet  = Phigh/Rg/Tinlet;                                              
+Tinf    = Tinlet;                                                       
+
+
+qrinse  = (Qn_r*100000/Phigh*Tinlet/273.15/60/1000);
+Qpurge  = (Qn_p*100000/Plow*Tinlet/273.15/60/1000);
+
+
+
+ for i:= 1 to nocomp do
+    case OP_Mode of 
+        WHEN feed:
+        
+        molarexit(i)=u0(L)*cgi(i,L)*bed_area;
+        $AmountPress(i)=0;
+	$Amountfeedin(i)=u0(0)*cgi(i,0)*bed_area;
+        $Amountfeedout(i)=u0(L)*cgi(i,L)*bed_area;
+	$Amountblowdown(i)=0;
+        $AmountRinsein(i)=0;
+        $AmountRinseout(i)=0;
+        $AmountPurgein(i)=0;
+        $AmountPurgeout(i)=0;
+        $AmountPreEQDep(i)=0;
+        $AmountPreEQPre(i)=0;
+        $AmountReceiveR(i)=0;
+        $AmountDepco(i)=0;
+
+	WHEN blowdown:
+
+        molarexit(i)=-u0(0)*cgi(i,0)*bed_area;
+        $AmountPress(i)=0;
+	$Amountfeedin(i)=0;
+	$Amountfeedout(i)=0;
+	$Amountblowdown(i)=-u0(0)*cgi(i,0)*bed_area;
+        $AmountRinsein(i)=0;
+        $AmountRinseout(i)=0;
+        $AmountPurgein(i)=0;
+        $AmountPurgeout(i)=0;
+        $AmountPreEQDep(i)=0;
+        $AmountPreEQPre(i)=0;
+        $AmountReceiveR(i)=0;
+        $AmountDepco(i)=0;
+
+	WHEN purge:
+        
+        molarexit(i)=-u0(0)*cgi(i,0)*bed_area;
+        $AmountPress(i)=0;
+	$Amountfeedin(i)=0;
+	$Amountfeedout(i)=0;
+	$Amountblowdown(i)=0;
+        $AmountRinsein(i)=0;
+        $AmountRinseout(i)=0;
+        $AmountPurgein(i)=Qpurge*Plow/Rg/Tinlet*yin_purge(i);
+        $AmountPurgeout(i)=-u0(0)*cgi(i,0)*bed_area;
+        $AmountPreEQDep(i)=0;
+        $AmountPreEQPre(i)=0;
+        $AmountReceiveR(i)=0;
+        $AmountDepco(i)=0;
+
+	WHEN Rinse:
+        
+        molarexit(i)=u0(L)*cgi(i,L)*bed_area;
+        $AmountPress(i)=0;
+	$Amountfeedin(i)=0;
+	$Amountfeedout(i)=0;
+	$Amountblowdown(i)=0;
+        $AmountRinsein(i)=Qrinse*Phigh/Rg/Tinlet*yin_rinse(i);
+        $AmountRinseout(i)=u0(L)*cgi(i,L)*bed_area;
+        $AmountPurgein(i)=0;
+        $AmountPurgeout(i)=0;
+        $AmountPreEQDep(i)=0;
+        $AmountPreEQPre(i)=0;
+        $AmountReceiveR(i)=0;
+        $AmountDepco(i)=0;
+end #case
+end #for
+
+case OP_Mode of 
+        WHEN feed:
+
+output(1)=yi(1,L);
+output(2)=yi(2,L);
+output(3)=yi(3,L);
+output(4)=cgt(L);
+output(5)=u0(L);
+output(6)=tg(0.032);
+output(7)=tg(0.141);
+output(8)=tg(0.251);
+
+
+	WHEN blowdown:
+
+output(1)=yi(1,0);
+output(2)=yi(2,0);
+output(3)=yi(3,0);
+output(4)=cgt(0);
+output(5)=-u0(0);
+output(6)=tg(0.032);
+output(7)=tg(0.141);
+output(8)=tg(0.251);
+
+
+	WHEN purge:
+
+output(1)=yi(1,0);
+output(2)=yi(2,0);
+output(3)=yi(3,0);
+output(4)=cgt(0);
+output(5)=-u0(0);
+output(6)=tg(0.032);
+output(7)=tg(0.141);
+output(8)=tg(0.251);
+
+	WHEN Rinse:
+
+output(1)=yi(1,L);
+output(2)=yi(2,L);
+output(3)=yi(3,L);
+output(4)=cgt(L);
+output(5)=u0(L);
+output(6)=tg(0.032);
+output(7)=tg(0.141);
+output(8)=tg(0.251);
+
+end #case]]></Body>
+    </ModelEntity>
+  </Group>
+  <Group name="Tasks">
+    <TaskEntity name="InitCycle" type="psenterprise.gpromskit.models.TaskEntity">
+      <Properties>
+        <StringProperty name="CreatedBy">teste</StringProperty>
+        <DateProperty name="CreatedDate">2025-08-21T02:33:56Z</DateProperty>
+        <StringProperty name="ModifiedBy">teste</StringProperty>
+        <DateProperty name="ModifiedDate">2025-08-31T23:53:21Z</DateProperty>
+        <BooleanProperty name="Win32LineSeparation">false</BooleanProperty>
+        <BooleanProperty name="DisplayedInPalette">true</BooleanProperty>
+      </Properties>
+      <Body><![CDATA[PARAMETER
+simul AS MODEL Fixed_bed_Lang_1LDF
+
+SCHEDULE
+PARALLEL
+  SEQUENCE
+    SWITCH simul.OP_mode:=simul.feed; END
+  END
+  SEQUENCE
+    RESET simul.CountCycle:=OLD(simul.CountCycle)+1; END
+  END
+#PARALLEL
+  reset simul.yin_purge:=(old(simul.AmountFeedout)+old(simul.AmountRinseout))
+                        /(sigma(old(simul.AmountFeedout))+sigma(old(simul.AmountRinseout))); end
+  reset simul.yin_rinse:=(old(simul.AmountBlowdown)+old(simul.AmountPurgeout))
+                    /(sigma(old(simul.AmountBlowdown))+sigma(old(simul.AmountPurgeout))); end   
+END
+]]></Body>
+    </TaskEntity>
+    <TaskEntity name="monit" type="psenterprise.gpromskit.models.TaskEntity">
+      <Properties>
+        <StringProperty name="CreatedBy">teste</StringProperty>
+        <DateProperty name="CreatedDate">2025-08-21T02:34:39Z</DateProperty>
+        <StringProperty name="ModifiedBy">teste</StringProperty>
+        <DateProperty name="ModifiedDate">2025-09-01T00:54:02Z</DateProperty>
+        <BooleanProperty name="Win32LineSeparation">false</BooleanProperty>
+        <BooleanProperty name="DisplayedInPalette">true</BooleanProperty>
+      </Properties>
+      <Body><![CDATA[PARAMETER
+simul AS MODEL Fixed_bed_Lang_1LDF
+Nocycles as integer
+tpress as real
+tfeed as real
+tblow as real
+tpurge as real
+teq as real
+trinse as REAL
+
+VARIABLE
+cyclePSA as integer
+
+SCHEDULE
+Sequence
+ cyclePSA:=1;
+ while cyclePSA <= Nocycles do
+   sequence
+	PSA (simul IS simul, tpress is tpress, tfeed is tfeed, 
+              tblow is tblow, tpurge is tpurge, teq is teq,
+              trinse is trinse)
+        cyclePSA:=cyclePSA+1;
+   end #sequence
+end #while
+end #sequence
+]]></Body>
+    </TaskEntity>
+    <TaskEntity name="PSA" type="psenterprise.gpromskit.models.TaskEntity">
+      <Properties>
+        <StringProperty name="CreatedBy">teste</StringProperty>
+        <DateProperty name="CreatedDate">2025-08-21T02:35:03Z</DateProperty>
+        <StringProperty name="ModifiedBy">teste</StringProperty>
+        <DateProperty name="ModifiedDate">2025-09-01T00:51:23Z</DateProperty>
+        <BooleanProperty name="Win32LineSeparation">false</BooleanProperty>
+        <BooleanProperty name="DisplayedInPalette">true</BooleanProperty>
+      </Properties>
+      <Body><![CDATA[PARAMETER
+simul AS MODEL Fixed_bed_Lang_1LDF
+tpress as real
+tfeed as real
+tblow as real
+tpurge as real
+teq as REAL
+trinse as REAL
+
+SCHEDULE
+SEQUENCE
+   sequence
+           RunCycle(simul IS simul, tpress is tpress, tfeed is tfeed, tblow is tblow, 
+                        tpurge is tpurge, teq is teq, trinse is trinse)
+                InitCycle(simul IS simul)
+                    RESET
+                        simul.Performance(1):=(OLD(simul.Amountfeedout(3))+OLD(simul.AmountRinseout(3))+old(simul.AmountDepco(3)))
+                                         /(sigma(old(simul.Amountfeedout))+sigma(old(simul.AmountRinseout))+sigma(old(simul.AmountDepco)))*100; #h2
+                            
+                        simul.Performance(2):=(OLD(simul.Amountfeedout(3))+OLD(simul.AmountRinseout(3))+old(simul.AmountDepco(3)))/
+                                             (OLD(simul.Amountfeedout(2))+OLD(simul.AmountRinseout(2))+old(simul.AmountDepco(2)));
+
+                                          
+                        simul.Performance(3):=(OLD(simul.Amountblowdown(1))+OLD(simul.AmountPurgeout(1)))
+                                            /(sigma(OLD(simul.Amountblowdown))+sigma(OLD(simul.AmountPurgeout)))*100; #co2 pur
+
+                        simul.Performance(4):=(OLD(simul.Amountblowdown(1))+OLD(simul.AmountPurgeout(1))-OLD(simul.Amountrinsein(1)))
+                                                    /(OLD(simul.Amountfeedin(1)))*100; #rec co2
+                                         
+                        simul.Performance(5):=(old(simul.AmountFeedin(1)))*old(simul.Performance(4))/100/(simul.rob*simul.bed_area*simul.L)/(old(simul.Ttotal)/3600); #Produ
+
+                       
+
+                    END #reset
+                    REINITIAL
+                        simul.Amountpress,
+                        simul.Amountfeedin,
+                        simul.Amountfeedout,
+                        simul.Amountblowdown,
+                        simul.AmountRinsein,
+                        simul.AmountRinseout,
+                        simul.Amountpurgein,
+                        simul.Amountpurgeout,
+                        simul.AmountPreEQDep,
+                        simul.AmountPreEQPre,
+                        simul.AmountReceiveR,
+                        simul.AmountDepco
+                         WITH
+                        simul.Amountpress=0;
+                        simul.Amountfeedin=0;
+                        simul.Amountfeedout=0;
+                        simul.Amountblowdown=0;
+                        simul.AmountRinsein=0;
+                        simul.AmountRinseout=0;
+                        simul.Amountpurgein=0;
+                        simul.Amountpurgeout=0;
+                        simul.AmountPreEQDep=0;
+                        simul.AmountPreEQPre=0;
+                        simul.AmountReceiveR=0;
+                        simul.AmountDepco=0;
+                    END #reinitial
+                END #sequence
+        END #sequence
+]]></Body>
+    </TaskEntity>
+    <TaskEntity name="RunCycle" type="psenterprise.gpromskit.models.TaskEntity">
+      <Properties>
+        <StringProperty name="CreatedBy">teste</StringProperty>
+        <DateProperty name="CreatedDate">2025-08-21T02:35:40Z</DateProperty>
+        <StringProperty name="ModifiedBy">teste</StringProperty>
+        <DateProperty name="ModifiedDate">2025-08-31T23:57:01Z</DateProperty>
+        <BooleanProperty name="Win32LineSeparation">false</BooleanProperty>
+        <BooleanProperty name="DisplayedInPalette">true</BooleanProperty>
+      </Properties>
+      <Body><![CDATA[PARAMETER
+simul AS MODEL Fixed_bed_Lang_1LDF
+tpress as real
+tfeed as real
+tblow as real
+tpurge as real
+teq as REAL
+trinse as REAL
+
+
+SCHEDULE
+
+SEQUENCE
+    CONTINUE FOR tfeed
+    switch simul.OP_mode:=simul.Rinse; end
+    continue for trinse
+    RESET simul.Pblow:=old(simul.P(0)); END
+    SWITCH simul.OP_Mode:=simul.blowdown; END
+    CONTINUE FOR tblow
+    RESET simul.Ppurge:=old(simul.P(0)); END
+    SWITCH simul.OP_Mode:=simul.purge; END
+    CONTINUE FOR tpurge
+    END #SEQUENCE
+]]></Body>
+    </TaskEntity>
+  </Group>
+  <Group name="Processes">
+    <ProcessEntity name="Simulation_Syngas" type="psenterprise.gpromskit.models.ProcessEntity" version="1">
+      <Properties>
+        <StringProperty name="CreatedBy">teste</StringProperty>
+        <DateProperty name="CreatedDate">2025-08-21T02:36:13Z</DateProperty>
+        <StringProperty name="ModifiedBy">teste</StringProperty>
+        <DateProperty name="ModifiedDate">2025-10-26T19:17:09Z</DateProperty>
+        <BooleanProperty name="Win32LineSeparation">false</BooleanProperty>
+        <BooleanProperty name="IncludeUnitSpecifications">true</BooleanProperty>
+        <BooleanProperty name="IncludeInitialisationProcedure">false</BooleanProperty>
+      </Properties>
+      <Body><![CDATA[UNIT
+simul as Fixed_bed_Lang_1LDF
+
+SET
+
+WITHIN simul do
+
+nocomp        := 3;                                  
+Rg            := 8.314;                               
+Rp            := 1e-3;                                
+roap          := 549;                                 
+Cps           := 1200;                                
+rob           := (1-epsb)*roap;                       
+apm           := 3/Rp;                                
+dp            := 2*Rp;                                                                                              
+L             := 0.323;                               
+Dw            := 0.0211;                               
+epsb          := 0.352;                               
+row           := 8238;                                
+Cpw           := 500;                                 
+alfaw         := 457;                                 
+alfawl        := 499;                                 
+Qfeed_SLPM    := 0.43;
+bed_area      := 3.1415*(Dw/2)^2;                   
+nocycles      := 1;                                  
+betapeq       := 0.04;
+betadepco     := 0.07;
+betablow      := 0.018;
+dax           := 6.9e-5;                             
+kf            := 2.0e-2;                              
+lambda        := 0.6;                                 
+hf            := 128;                                 
+visc          := 1.7e-5;                             
+U             := 37;                                  
+hw            := 50;                                 
+Cpmix         := 31;                                  
+Cvmix         := 23;                                  
+Mwi           := [4.400e-02,2.8e-02,2e-3];       
+dpi           := [7.7e-7,9.8e-7,2.5e-6];       
+MDH1          := [21885,13351,35260];                 
+kinf          := [5.78e-5,3.36e-4,9.39e-7];           
+qsat          := [8.509,3.482,0.294];                 
+Cvi           := [29.8,20.6,12.5];               
+eta           := 0.85;
+gama          := cpmix/cvmix;
+
+# x             := [ocfem,2,20];
+x               := [cfdm,2,50];
+
+end #WITHIN
+
+ASSIGN
+
+within simul do 
+
+yin_feed     := [0.3,0.22,0.48];                   
+yin_peq      := [0,1,0];
+yin_press    := [0,0,1];
+yin_purge    := [0,0.32,0.68];
+yin_rinse    := [1,0,0];
+yin_rr       := [1,0,0];
+Phigh        := 4.8e5;                                
+Plow         := 0.55e5;
+Pblow        := 1e5;
+Prinse       := 1e5;
+Ppeqd        := 33e5;
+Ppeqp        := 11e5;
+Ppurge       := 1e5;
+Ppress       := 4e5;
+Pdepco       := 1e5;
+Performance  := 100;
+Pinter1      := 1.5e5;
+Pinter2      := 11e5;
+qrr          := 1e-5;
+qeq          := 0.3;
+countcycle   := 1;
+Qn_r         := 0.57;
+Qn_p         := 0.305;
+Tfeed        := 679.462;
+Tpress       := 0;
+Teq          := 0;
+Tpurge       := 80;
+Trinse       := 187;
+Tdepco       := 0;
+Tinlet       := 305.059;
+
+end
+
+INITIALSELECTOR
+
+within simul do
+
+OP_mode:=feed;
+
+end
+
+
+INITIAL
+
+within simul do
+
+Mytime   = 0;
+
+for z:=0|+ to L|- do
+
+Cgt(z)   = Phigh/Rg/Tinlet;
+# yi(1,z)  = 0;
+yi(2,z)  = 0;
+yi(3,z)  = 1;
+Tg(z)    = Tinlet;
+
+end #for z
+
+for z:=0 to L do
+
+$qi(1,z) = 0;
+$qi(2,z) = 0;
+$qi(3,z) = 0;
+Tp(z)    = Tinlet;
+Tw(z)    = Tinlet;
+
+end #for z
+
+for i:=1 to nocomp do
+
+AmountPress(i)     = 0;
+Amountfeedin(i)    = 0;
+Amountfeedout(i)   = 0;
+Amountblowdown(i)  = 0;
+AmountRinsein(i)   = 0;
+AmountRinseout(i)  = 0;
+AmountPurgein(i)   = 0;
+AmountPurgeout(i)  = 0;
+AmountPreEQDep(i)  = 0;
+AmountPreEQPre(i)  = 0;
+AmountReceiveR(i)  = 0;
+AmountDepco(i)     = 0;
+
+
+end #for
+
+end #within
+
+SOLUTIONPARAMETERS
+
+    ReportingInterval := 10
+#    DASolver := "DASOLV" [
+#        "AbsolutePerturbationFactor" := 1.0E-10,
+#        "AbsoluteTolerance" := 1.0E-15,
+#        "EffectiveZero" := 1.0E-15
+#    ]
+    FPI := "eventFPI"
+
+SCHEDULE
+
+SEQUENCE
+
+monit(simul IS simul, Nocycles is simul.Nocycles, tpress is simul.tpress, tfeed is simul.tfeed, 
+ tblow is simul.tblow, tpurge is simul.tpurge, teq is simul.Teq, Trinse is simul.Trinse)
+
+END #Sequence
+]]></Body>
+    </ProcessEntity>
+  </Group>
+  <Group name="Experiments">
+    <Group name="... performed">
+    </Group>
+    <Group name="... to be designed">
+    </Group>
+  </Group>
+  <Group name="Experiment Designs">
+  </Group>
+  <Group name="Parameter Estimations">
+  </Group>
+  <Group name="Optimisations">
+  </Group>
+  <Group name="Saved Variable Sets">
+  </Group>
+  <Group name="Miscellaneous Files">
+  </Group>
+</gMB:GpromsProject>
