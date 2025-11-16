@@ -1,3 +1,4 @@
+import copy
 from typing import TypedDict
 
 import torch
@@ -27,6 +28,29 @@ class BaseModel(nn.Module):
     def loss_fn(self, Y_pred, Y_true, params=None):
         return torch.mean((Y_pred - Y_true) ** 2)
 
+    def _fit(
+        self,
+        X_train,
+        Y_train,
+        X_val,
+        Y_val,
+        optimizer,
+    ):
+        self.train()
+        Y_pred = self(X_train)
+        train_loss = self.loss_fn(Y_pred, Y_train)
+
+        optimizer.zero_grad()
+        train_loss.backward()
+        optimizer.step()
+
+        # validation step
+        self.eval()
+        with torch.no_grad():
+            Y_pred_val = self(X_val)
+            val_loss = self.loss_fn(Y_pred_val, Y_val)
+        return train_loss, val_loss
+
     def fit(
         self,
         X_train,
@@ -37,52 +61,46 @@ class BaseModel(nn.Module):
         epochs: int,
     ):
         history = {"train_loss": [], "val_loss": []}
-        best_loss = torch.inf
-        epochs_without_improvement = 0
+
+        best_val_loss = torch.inf
+        best_state_dict = None
+        best_epoch = -1
 
         for epoch in range(epochs):
-            # Train
-            self.train()
+            train_loss, val_loss = self._fit(
+                X_train,
+                Y_train,
+                X_val,
+                Y_val,
+                optimizer,
+            )
 
-            Y_pred = self(X_train)
-            train_loss = self.loss_fn(Y_pred, Y_train)
-
-            optimizer.zero_grad()
-            train_loss.backward()
-            optimizer.step()
-
-            # Validation
-            self.eval()
-            with torch.no_grad():
-                Y_pred_val = self(X_val)
-                val_loss = self.loss_fn(Y_pred_val, Y_val)
-
-            # Save history
+            # record history
             history["train_loss"].append(train_loss.item())
             history["val_loss"].append(val_loss.item())
 
-            # Early Stopping
-            if val_loss < best_loss:
-                best_loss = val_loss
-                epochs_without_improvement = 0
-            else:
-                epochs_without_improvement += 1
+            # save best model
+            if val_loss < best_val_loss:
+                best_val_loss = val_loss
+                best_state_dict = copy.deepcopy(self.state_dict())
+                best_epoch = epoch
 
-            if epochs_without_improvement >= 1000:
-                print("Early stopping ativado. Treinamento interrompido.")
-                break
-
-            if torch.isnan(train_loss):
-                raise ValueError("Loss is NaN. Treinamento interrompido.")
-
-            # Notify epoch
+            # print progress
             if epoch % 500 == 0:
                 print(
-                    f"Epoch {epoch}, Training Loss: {train_loss}, Validation Loss: {val_loss}"
+                    f"Epoch {epoch:5d} | "
+                    f"train_loss={train_loss.item():.6f} | "
+                    f"val_loss={val_loss.item():.6f}"
                 )
+
         print("Final Training Loss:", history["train_loss"][-1])
         print("Final Validation Loss:", history["val_loss"][-1])
-        return history
+
+        # load best model
+        if best_state_dict is not None:
+            self.load_state_dict(best_state_dict)
+
+        return history, best_epoch
 
 
 class FNN(BaseModel):
@@ -96,10 +114,6 @@ class FNN(BaseModel):
         super(FNN, self).__init__()
         self.hidden_layer = nn.Sequential(
             nn.Linear(input_size, hidden_size),
-            nn.Tanh(),
-            nn.Linear(hidden_size, hidden_size),
-            nn.Tanh(),
-            nn.Linear(hidden_size, hidden_size),
             nn.Tanh(),
             nn.Linear(hidden_size, hidden_size),
             nn.Tanh(),
