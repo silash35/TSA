@@ -24,24 +24,46 @@ class DataInfo(TypedDict):
 
 
 class BaseModel(nn.Module):
-    def fit(self, optimizer, loss_fn, epochs: int, loss_fn_params=None):
-        history = []
+    def loss_fn(self, Y_pred, Y_true, params=None):
+        return torch.mean((Y_pred - Y_true) ** 2)
+
+    def fit(
+        self,
+        X_train,
+        Y_train,
+        X_val,
+        Y_val,
+        optimizer,
+        epochs: int,
+    ):
+        history = {"train_loss": [], "val_loss": []}
         best_loss = torch.inf
         epochs_without_improvement = 0
 
         for epoch in range(epochs):
+            # Train
             self.train()
-            loss, status = loss_fn(self, loss_fn_params)
-            optimizer.zero_grad(set_to_none=True)
-            loss.backward()
-            # torch.nn.utils.clip_grad_norm_(self.parameters(), 1.0)
+
+            Y_pred = self(X_train)
+            train_loss = self.loss_fn(Y_pred, Y_train)
+
+            optimizer.zero_grad()
+            train_loss.backward()
             optimizer.step()
 
-            history.append(status)
+            # Validation
+            self.eval()
+            with torch.no_grad():
+                Y_pred_val = self(X_val)
+                val_loss = self.loss_fn(Y_pred_val, Y_val)
+
+            # Save history
+            history["train_loss"].append(train_loss.item())
+            history["val_loss"].append(val_loss.item())
 
             # Early Stopping
-            if loss < best_loss:
-                best_loss = loss
+            if val_loss < best_loss:
+                best_loss = val_loss
                 epochs_without_improvement = 0
             else:
                 epochs_without_improvement += 1
@@ -50,13 +72,16 @@ class BaseModel(nn.Module):
                 print("Early stopping ativado. Treinamento interrompido.")
                 break
 
-            if torch.isnan(loss):
+            if torch.isnan(train_loss):
                 raise ValueError("Loss is NaN. Treinamento interrompido.")
 
             # Notify epoch
-            if epoch % 100 == 0:
-                print(f"Epoch {epoch} loss: {loss}")
-        print("Loss Final:", torch.sum(torch.tensor(history[-1])).item())
+            if epoch % 500 == 0:
+                print(
+                    f"Epoch {epoch}, Training Loss: {train_loss}, Validation Loss: {val_loss}"
+                )
+        print("Final Training Loss:", history["train_loss"][-1])
+        print("Final Validation Loss:", history["val_loss"][-1])
         return history
 
 

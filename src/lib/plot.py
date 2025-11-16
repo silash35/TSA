@@ -13,20 +13,20 @@ plt.rcParams.update(
 def plot_comparison(cycles, real_y, model_y, model_name):
     plt.figure()
 
-    plt.plot(cycles, real_y[:, 0], label="Purity H2")
-    plt.scatter(cycles, model_y[:, 0], label=f"Purity H2 ({model_name})")
+    plt.scatter(cycles, real_y[:, 0], label="Purity H2")
+    plt.plot(cycles, model_y[:, 0], label=f"Purity H2 ({model_name})")
 
-    plt.plot(cycles, real_y[:, 1], label="H2/CO ratio")
-    plt.scatter(cycles, model_y[:, 1], label=f"H2/CO ratio ({model_name})")
+    plt.scatter(cycles, real_y[:, 1], label="H2/CO ratio")
+    plt.plot(cycles, model_y[:, 1], label=f"H2/CO ratio ({model_name})")
 
-    plt.plot(cycles, real_y[:, 2], label="Purity CO2")
-    plt.scatter(cycles, model_y[:, 2], label=f"Purity CO2 ({model_name})")
+    plt.scatter(cycles, real_y[:, 2], label="Purity CO2")
+    plt.plot(cycles, model_y[:, 2], label=f"Purity CO2 ({model_name})")
 
-    plt.plot(cycles, real_y[:, 3], label="Recovery CO2")
-    plt.scatter(cycles, model_y[:, 3], label=f"Recovery CO2 ({model_name})")
+    plt.scatter(cycles, real_y[:, 3], label="Recovery CO2")
+    plt.plot(cycles, model_y[:, 3], label=f"Recovery CO2 ({model_name})")
 
-    plt.plot(cycles, real_y[:, 4], label="Productivity")
-    plt.scatter(cycles, model_y[:, 4], label=f"Productivity ({model_name})")
+    plt.scatter(cycles, real_y[:, 4], label="Productivity")
+    plt.plot(cycles, model_y[:, 4], label=f"Productivity ({model_name})")
 
     plt.ylim(0, real_y.max() * 1.1)
 
@@ -34,4 +34,24 @@ def plot_comparison(cycles, real_y, model_y, model_name):
     plt.ylabel("Saída")
     plt.legend()
     plt.grid(True)
-    plt.show()
+    # plt.show()
+
+    plt.tight_layout()
+    plt.savefig(f"../figures/comparision-{model_name}.png")
+    plt.close()
+
+
+def plot_loss(train_loss, validation_loss, model_name):
+    plt.figure()
+    plt.plot(train_loss, label="Training Loss")
+    plt.plot(validation_loss, label="Validation Loss")
+    plt.xlabel("Epoch")
+    plt.ylabel("Loss")
+    plt.title(f"Loss over Epochs ({model_name})")
+    plt.legend()
+    plt.grid(True)
+    # plt.show()
+
+    plt.tight_layout()
+    plt.savefig(f"../figures/loss-{model_name}.png")
+    plt.close()
