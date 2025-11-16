@@ -3,6 +3,8 @@ import matplotlib.pyplot as plt
 plt.rcParams.update(
     {
         "figure.figsize": (16, 6),
+        "figure.autolayout": True,
+        "axes.grid": True,
         # 'figure.dpi': 300,
         "font.size": 15,
         "legend.loc": "upper right",
@@ -33,10 +35,8 @@ def plot_comparison(cycles, real_y, model_y, model_name):
     plt.xlabel("Ciclo")
     plt.ylabel("Saída")
     plt.legend()
-    plt.grid(True)
     # plt.show()
 
-    plt.tight_layout()
     plt.savefig(f"../figures/comparision-{model_name}.png")
     plt.close()
 
@@ -49,9 +49,7 @@ def plot_loss(train_loss, validation_loss, model_name):
     plt.ylabel("Loss")
     plt.title(f"Loss over Epochs ({model_name})")
     plt.legend()
-    plt.grid(True)
     # plt.show()
 
-    plt.tight_layout()
     plt.savefig(f"../figures/loss-{model_name}.png")
     plt.close()

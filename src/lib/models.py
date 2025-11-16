@@ -4,17 +4,7 @@ from typing import TypedDict
 import torch
 from torch import nn
 
-
-def normalize(
-    x: torch.Tensor, x_min: torch.Tensor, x_max: torch.Tensor
-) -> torch.Tensor:
-    return ((x - x_min) / (x_max - x_min)) * 2 - 1
-
-
-def denormalize(
-    x: torch.Tensor, x_min: torch.Tensor, x_max: torch.Tensor
-) -> torch.Tensor:
-    return ((x + 1) / 2) * (x_max - x_min) + x_min
+from .utils import denormalize, normalize
 
 
 class DataInfo(TypedDict):
