@@ -11,3 +11,8 @@ ARX
 structure
 PSEblue
 named
+Adsorption
+Desorção
+Desorption
+Purge
+gPROMS
