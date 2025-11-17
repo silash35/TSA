@@ -1,0 +1,56 @@
+\section{A PINN para Solução de EDOs}
+
+\begin{frame}{Estrutura da Rede Neural utilizada}
+  A rede neural utilizada consiste em 5 camadas com a função de ativação tangente hiperbólica $(\tanh)$ entre elas.
+
+  \begin{itemize}
+    \item Entrada: $x = t$;
+    \item camada linear 1: 32 neurônios;
+    \item camada linear 2: 32 neurônios;
+    \item camada linear 3: 32 neurônios;
+    \item camada linear 4: 32 neurônios;
+    \item saída: $\mathbf{y} = [h_1, h_2]$.
+  \end{itemize}
+
+  Totalizando $32+32+32+32+2=130$ neurônios.
+\end{frame}
+
+\begin{frame}{Entendendo a função custo utilizada}
+  A função custo utilizada combina o erro baseado nas equações diferenciais com o erro de dados simulados.
+
+  \begin{equation}
+    \mathcal{L} = w_1 \cdot \mathcal{L}_{\text{EDO}} + w_2 \cdot \mathcal{L}_{\text{IC}} + w_3 \cdot \mathcal{L}_{\text{data}}
+  \end{equation}
+  onde:
+  \begin{itemize}
+    \item $w_1, w_2, w_3$: pesos para o cálculo do custo;
+    \item $\mathcal{L}_{\text{EDO}}$: erro das equações diferenciais;
+    \item $\mathcal{L}_{\text{IC}}$: erro das condições iniciais;
+    \item $\mathcal{L}_{\text{data}}$: erro dos dados;
+    \item $\mathcal{L}$: erro total.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \begin{figure}
+    \centering
+    % \resizebox{\textwidth}{!}{\input{../common/figures/pinn-diagram.tex}}
+    \caption{Diagrama da PINN utilizada}
+  \end{figure}
+\end{frame}
+
+\begin{frame}{Resultados}
+  \begin{figure}
+    \centering
+    % \includegraphics[width=1\textwidth]{pinn-result.png}
+    \caption{Comparação entre as previsões da PINN e o método numérico (RK45).}
+  \end{figure}
+\end{frame}
+
+\begin{frame}{Comparação de Tempos de Execução}
+  \begin{figure}
+    \centering
+    % \includegraphics[width=\textwidth]{pinn-benchmark.png}
+    \caption{Densidade de probabilidade dos tempos de execução dos métodos avaliados. Cada método foi executado 100 vezes; as linhas tracejadas indicam os tempos médios.}
+  \end{figure}
+\end{frame}

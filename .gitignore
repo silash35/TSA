@@ -4,3 +4,17 @@
 *.dat
 data.csv
 **/.pixi/
+
+# LaTeX
+*.aux
+*.bcf
+*.fdb_latexmk
+*.fls
+*.log
+*.nav
+*.out
+*.pdf
+*.run.xml
+*.snm
+*.synctex.gz
+*.toc

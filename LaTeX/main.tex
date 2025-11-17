@@ -1,0 +1,46 @@
+\documentclass[aspectratio=169]{beamer}
+\input{style.tex}
+
+\addbibresource{../common/bibliography.bib}
+\graphicspath{{figures/}}
+
+\definecolor{PSEblue}{RGB}{121, 164, 200}
+\usecolortheme[named=PSEblue]{structure}
+\usepackage{pdfpages}
+
+% Presentation settings
+\title[Aplicação de Inteligência Artificial na Modelagem de Ciclos de PSA]{Aplicação de Inteligência Artificial na Modelagem de Ciclos de Adsorção por Modulação de Pressão}
+
+\author[Silas Araújo]{Silas Araújo, Ana Santos, Diego Tachy, Pablo Santos, Paulo Dantas, Arioston Morais e Márcio A.F. Martins}
+
+\institute{Universidade Federal da Bahia}
+
+\begin{document}
+
+\maketitle
+
+\input{content/introduction.tex}
+\input{content/pinn.tex}
+\input{content/conclusion.tex}
+
+{
+  \logo{
+    \raisebox{-1cm}{
+      \includegraphics[height=1.8cm, keepaspectratio]{prh.png}%
+    }
+    \hspace{0.1cm}
+    \raisebox{-1cm}{
+      \includegraphics[height=1.8cm, keepaspectratio]{ufba.png}%
+    }
+    \hspace{2.0cm}
+  }
+  \begin{frame}{Agradecimentos}
+    \centering \large Os autores gostariam de agradecer a ANP no âmbito do PRH 41/UFBA, pelo suporte financeiro e apoio ao desenvolvimento deste trabalho.
+  \end{frame}
+}
+
+\begin{frame}[allowframebreaks]{Bibliografia}
+  % \printbibliography
+\end{frame}
+
+\end{document}
