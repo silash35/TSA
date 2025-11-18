@@ -16,3 +16,8 @@ Desorção
 Desorption
 Purge
 gPROMS
+productivity
+recovery
+purity
+FNN
+PSE NE
