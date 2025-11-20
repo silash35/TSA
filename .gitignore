@@ -20,3 +20,5 @@ data.csv
 *.snm
 *.synctex.gz
 *.toc
+
+!background.pdf

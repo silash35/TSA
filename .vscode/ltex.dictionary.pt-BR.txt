@@ -21,3 +21,5 @@ recovery
 purity
 FNN
 PSE NE
+footline
+Araújo1

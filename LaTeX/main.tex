@@ -4,20 +4,33 @@
 \addbibresource{bibliography.bib}
 \graphicspath{{figures/}}
 
-\definecolor{PSEblue}{RGB}{121, 164, 200}
-\usecolortheme[named=PSEblue]{structure}
-\usepackage{pdfpages}
-
 % Presentation settings
 \title[Aplicação de Inteligência Artificial na Modelagem de Ciclos de PSA]{Aplicação de Inteligência Artificial na Modelagem de Ciclos de Adsorção por Modulação de Pressão}
 
-\author[Silas Araújo]{Silas Araújo, Ana Santos, Diego Tachy, Pablo Santos, Paulo Dantas, Arioston Morais e Márcio A.F. Martins}
+\author[Silas Araújo]{
+  Silas Araújo\inst{1},
+  Ana Santos\inst{1},
+  Diego Tachy\inst{1},
+  Pablo Santos\inst{1},
+  Paulo Dantas\inst{1},
+  Arioston Morais\inst{2},
+  Márcio A.F. Martins\inst{1}
+}
 
-\institute{Universidade Federal da Bahia}
+\institute{
+  \inst{1} Universidade Federal da Bahia (UFBA) \\
+  \inst{2} Universidade Federal da Paraíba (UFPB)
+}
 
 \begin{document}
 
+{
+\setbeamertemplate{footline}{}
+\usebackgroundtemplate{
+  \includegraphics[page=1,width=\paperwidth,height=\paperheight]{background.pdf}
+}
 \maketitle
+}
 
 \input{content/1.introduction.tex}
 \input{content/2.data-processing.tex}
