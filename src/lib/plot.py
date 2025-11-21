@@ -34,7 +34,13 @@ def plot_comparison(cycles, real_y, model_y, model_name):
     ax = axes[0]
     for i in group1:
         label, idx = variables[i]
-        ax.scatter(cycles, real_y[:, idx], label=f"{label} (gPROMS)", color=colors[i])
+        ax.scatter(
+            cycles,
+            real_y[:, idx],
+            label=f"{label} (gPROMS)",
+            color=colors[i],
+            alpha=0.6,
+        )
         ax.plot(
             cycles, model_y[:, idx], label=f"{label} ({model_name})", color=colors[i]
         )
@@ -49,7 +55,13 @@ def plot_comparison(cycles, real_y, model_y, model_name):
     for i in group2:
         ax = axes[1]
         label, idx = variables[i]
-        ax.scatter(cycles, real_y[:, idx], label=f"{label} (gPROMS)", color=colors[i])
+        ax.scatter(
+            cycles,
+            real_y[:, idx],
+            label=f"{label} (gPROMS)",
+            color=colors[i],
+            alpha=0.6,
+        )
         ax.plot(
             cycles, model_y[:, idx], label=f"{label} ({model_name})", color=colors[i]
         )
