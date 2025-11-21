@@ -1,0 +1,27 @@
+\section{Modelo não Linear (NARX)}
+
+\begin{frame}
+  \begin{align}
+    \varphi(k) & =
+    \begin{bmatrix}
+      y(k-1)                \\[0.3em]
+      u(k-1)                \\[0.3em]
+      u(k)                  \\[0.5em]
+      y(k-1)^2              \\[0.3em]
+      u(k-1)^2              \\[0.3em]
+      u(k)^2                \\[0.5em]
+      y(k-1) \otimes u(k-1) \\[0.3em]
+      y(k-1) \otimes u(k)   \\
+    \end{bmatrix}
+    \\[1em]
+    y(k)       & = \varphi(k)^\top \theta
+  \end{align}
+\end{frame}
+
+\begin{frame}{Simulação do Modelo NARX}
+  \begin{figure}
+    \centering
+    \includegraphics[width=1\textwidth]{../figures/comparision-NARX.png}
+    \caption{Comparação entre os dados do gPROMS e as saídas do modelo NARX.}
+  \end{figure}
+\end{frame}

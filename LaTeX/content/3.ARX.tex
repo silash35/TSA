@@ -1,9 +1,9 @@
 \section{Modelo Linear (ARX)}
 
 \begin{frame}
-  \begin{align}
+  \begin{equation}
     % Definição das variáveis
-    y(k) & =
+    y(k) =
     \begin{bmatrix}
       \text{purity}_{\ce{H2}}(k)    \\
       \ce{H2}/\ce{CO}(k)            \\
@@ -11,15 +11,15 @@
       \text{recovery}_{\ce{CO2}}(k) \\
       \text{productivity}(k)
     \end{bmatrix},
-         &
-    u(k) & =
+    \qquad
+    u(k) =
     \begin{bmatrix}
       t_{\text{feed}}(k)  \\
       t_{\text{rinse}}(k) \\
       t_{\text{blow}}(k)  \\
       t_{\text{purge}}(k)
     \end{bmatrix}
-  \end{align}
+  \end{equation}
 
   \begin{align}
     \varphi(k) & =
