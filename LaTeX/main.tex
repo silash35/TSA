@@ -1,9 +1,6 @@
 \documentclass[aspectratio=169]{beamer}
 \input{style.tex}
 
-\addbibresource{bibliography.bib}
-\graphicspath{{figures/}}
-
 % Presentation settings
 \title[Aplicação de Inteligência Artificial na Modelagem de Ciclos de PSA]{Aplicação de Inteligência Artificial na Modelagem de Ciclos de Adsorção por Modulação de Pressão}
 
@@ -44,11 +41,11 @@
 {
   \logo{
     \raisebox{-1cm}{
-      \includegraphics[height=1.8cm, keepaspectratio]{prh.png}%
+      \includegraphics[height=1.8cm, keepaspectratio]{figures/prh.png}%
     }
     \hspace{0.1cm}
     \raisebox{-1cm}{
-      \includegraphics[height=1.8cm, keepaspectratio]{ufba.png}%
+      \includegraphics[height=1.8cm, keepaspectratio]{figures/ufba.png}%
     }
     \hspace{2.0cm}
   }
@@ -57,8 +54,8 @@
   \end{frame}
 }
 
-\begin{frame}[allowframebreaks]{Bibliografia}
-  \printbibliography
+\begin{frame}{Bibliografia}
+  \bibliography{bibliography.bib}
 \end{frame}
 
 \end{document}

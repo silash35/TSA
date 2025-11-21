@@ -1,11 +1,13 @@
 % Modelo LaTeX para o PSE NE 2025.
-% Feito por Silas Henrique (silash35@gmail.com)
-% Versão 1.0.0 (20/11/2025)
+% Desenvolvido por Silas Henrique (silash35@gmail.com),
+% com contribuições de Daniel Diniz Santana (daniel.diniz@ufba.br).
+% Versão 1.1.0 (21/11/2025)
 
-% --- Pacotes Diversos ---
-\usepackage[utf8]{inputenc}
+% --- Outros Pacotes ---
 \usepackage[T1]{fontenc}
-\usepackage[brazilian]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[brazil]{babel}
+
 \usepackage{xkeyval}
 
 % --- Pacotes gráficos e matemáticos ---
@@ -14,18 +16,17 @@
 \usepackage[version=4]{mhchem} % Escrever fórmulas químicas e reações
 \usepackage{tikz} % Desenhos
 
-% --- Bibliografia ---
-\usepackage[style=authoryear, doi=false, url=false]{biblatex}
-\usepackage{csquotes}      % Aspas inteligentes para citações
+% --- Bibliografia ----
+\usepackage[alf]{abntex2cite}
+% Correção: força tamanho normal nas citações
+%\renewcommand{\cite}[1]{\normalsize\oldcite{#1}}
+%\let\oldcite\cite
 
 % --- Configurações ---
 \usebackgroundtemplate{
   \includegraphics[page=2,width=\paperwidth,height=\paperheight]{background.pdf}
 } % Plano de fundo
 \usepackage[scaled=0.92]{helvet} % Fonte Helvetica
-
-% --- Traduções ---
-\renewcommand{\sectionname}{Seção}
 
 % --- Cores personalizadas ---
 \definecolor{PSEblue}{HTML}{364971} % azul principal
@@ -56,6 +57,20 @@
     \vspace{4mm}
     \insertdate
   \end{center}
+}
+
+\setbeamertemplate{section page}{
+  \begin{centering}
+    \vfill
+    \begin{beamercolorbox}[rounded=true,shadow=false,center,
+        wd=\textwidth, % largura da caixa
+        sep=10pt,      % espaçamento interno
+        colsep*=1pt,   % espaçamento da borda
+      ]{section title}
+      \usebeamerfont{section title}\insertsection
+    \end{beamercolorbox}
+    \vfill
+  \end{centering}
 }
 
 % Título dos slides
