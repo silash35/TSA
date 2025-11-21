@@ -1,9 +1,27 @@
-\section{Rede Neural Recorrente (RNN)}
+\section{Resultados}
 
-\begin{frame}{Simulação da RNN}
+\begin{frame}{Erros de Simulação (MSE)}
+  \centering
+  \begin{table}[h!]
+    \centering
+    \begin{tabular}{l c}
+      \hline
+      \textbf{Modelo} & \textbf{MSE} \\
+      \hline
+      ARX             & 0.1312       \\
+      NARX            & 0.0263       \\
+      FNN             & 0.0503       \\
+      RNN             & 2.4549       \\
+      \hline
+    \end{tabular}
+    \caption{Erros quadráticos médios (MSE) obtidos para cada modelo.}
+  \end{table}
+\end{frame}
+
+\begin{frame}{Comparação de Tempos de Execução}
   \begin{figure}
     \centering
-    \includegraphics[width=1\textwidth]{../figures/comparision-RNN.png}
-    \caption{Comparação entre os dados do gPROMS e as saídas da RNN.}
+    \includegraphics[width=0.85\textwidth]{../figures/benchmark.png}
+    \caption{Densidade de Probabilidade dos tempos de execução dos métodos avaliados. Cada método foi executado 100 vezes.}
   \end{figure}
 \end{frame}
