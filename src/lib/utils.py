@@ -1,3 +1,8 @@
+import os
+import time
+
+import hickle as hkl
+import numpy as np
 import torch
 
 
@@ -35,3 +40,24 @@ def prepare_sequences(
     Y_true = torch.stack(target_seqs).permute(1, 0)
 
     return X_true, Y_true
+
+
+def timer(func, *args):
+    start_time = time.monotonic()
+    result = func(*args)
+    elapsed_time = time.monotonic() - start_time
+    return result, elapsed_time
+
+
+def benchmark(func, model_name: str, *args):
+    BENCHMARK_FILE = f"../export/benchmark_{model_name}.hkl"
+    if os.path.exists(BENCHMARK_FILE):
+        print("Benchmark file already exists. Skipping benchmark.")
+        return
+
+    times = np.zeros(100)
+    for i in range(100):
+        _, elapsed_time = timer(func, *args)
+        times[i] = elapsed_time
+
+    hkl.dump(times, BENCHMARK_FILE)
