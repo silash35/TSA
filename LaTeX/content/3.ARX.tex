@@ -5,10 +5,10 @@
     % Definição das variáveis
     y(k) & =
     \begin{bmatrix}
-      \text{purity}_{H_2}(k)    \\
-      \text{H}_2/\text{CO}(k)   \\
-      \text{purity}_{CO_2}(k)   \\
-      \text{recovery}_{CO_2}(k) \\
+      \text{purity}_{\ce{H2}}(k)    \\
+      \ce{H2}/\ce{CO}(k)            \\
+      \text{purity}_{\ce{CO2}}(k)   \\
+      \text{recovery}_{\ce{CO2}}(k) \\
       \text{productivity}(k)
     \end{bmatrix},
          &
@@ -22,13 +22,14 @@
   \end{align}
 
   \begin{align}
-    \varphi(k-1) & =
+    \varphi(k) & =
     \begin{bmatrix}
       y(k-1) \\
-      u(k-1)
+      u(k-1) \\
+      u(k)
     \end{bmatrix}
     \\[1em]
-    y(k)         & = \varphi(k-1)^\top \theta
+    y(k)       & = \varphi(k)^\top \theta
   \end{align}
 \end{frame}
 
