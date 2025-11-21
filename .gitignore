@@ -5,6 +5,9 @@
 data.csv
 **/.pixi/
 
+# Dia
+*~
+
 # LaTeX
 *.aux
 *.bbl
