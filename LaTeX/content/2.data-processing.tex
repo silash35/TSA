@@ -3,6 +3,68 @@
 \begin{frame}{Dados do gPROMS}
   \begin{figure}
     \centering
+    \includegraphics[width=0.9\textwidth]{../figures/cgi-by-time.png}
+    \caption{Dinâmica da concentração de gás no final do leito ao longo de múltiplos ciclos.}
+  \end{figure}
+\end{frame}
+
+\begin{frame}{Equações dos KPIs}
+  \begin{columns}
+    \column{0.33\textwidth}
+    \begin{equation}
+      \mathrm{Purity}_{H_2} =
+      \frac{
+        \displaystyle \int C_{H_2}\, u_0 \, dt
+      }{
+        \displaystyle \int C_{\mathrm{tot}}\, u_0 \, dt
+      }
+    \end{equation}
+
+
+    \begin{equation}
+      \frac{H_2}{CO} =
+      \frac{
+        \displaystyle \int C_{H_2}\, u_0 \, dt
+      }{
+        \displaystyle \int C_{CO}\, u_0 \, dt
+      }
+    \end{equation}
+
+    \column{0.33\textwidth}
+    \begin{equation}
+      \mathrm{Purity}_{CO_2} =
+      \frac{
+        \displaystyle \int C_{CO_2}\, u_0 \, dt
+      }{
+        \displaystyle C_{\mathrm{tot}}\, u_0 \, dt
+      }
+    \end{equation}
+
+
+    \begin{equation}
+      \mathrm{Recovery}_{CO_2} =
+      \frac{
+        \displaystyle \int C_{CO_2}\, u_0 \, dt
+      }{
+        \displaystyle \int C_{CO_2}^{\mathrm{feed}}\, u_0 \, dt
+      }
+    \end{equation}
+
+    \column{0.33\textwidth}
+    \begin{equation}
+      \mathrm{Productivity} =
+      \frac{
+        \displaystyle \int C_{\mathrm{prod}}\, u_0 \, dt
+      }{
+        t_{\mathrm{cycle}}\, m_{\mathrm{ads}}
+      }
+    \end{equation}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{\:}
+  \begin{figure}
+    \centering
     \includegraphics[width=0.9\textwidth]{../figures/KPIs-by-time.png}
     \caption{Dados de uma simulação de 110 ciclos no gPROMS. As linhas verticais representam o fim de cada ciclo.}
   \end{figure}

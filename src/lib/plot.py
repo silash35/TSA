@@ -21,11 +21,11 @@ def legend_outside(ax: plt.Axes):
 def plot_comparison(cycles, real_y, model_y, model_name):
     _, axes = plt.subplots(2, 1, sharex=True)
     variables = [
-        ("Purity H2", 0),
-        ("H2/CO ratio", 1),
-        ("Purity CO2", 2),
-        ("Recovery CO2", 3),
-        ("Productivity", 4),
+        ("Purity H$_2$", 0),
+        ("H$_2$/CO ratio / -", 1),
+        ("Purity CO$_2$", 2),
+        ("Recovery CO$_2$", 3),
+        ("Productivity / mol$\\cdot$(kg·h)$^{-1}$", 4),
     ]
 
     group1 = [0, 2, 3]
@@ -45,7 +45,7 @@ def plot_comparison(cycles, real_y, model_y, model_name):
             cycles, model_y[:, idx], label=f"{label} ({model_name})", color=colors[i]
         )
     ax.set_ylim(ymin * 0.9, ymax * 1.1)
-    ax.set_ylabel("Valores")
+    ax.set_ylabel("Valores / %")
     legend_outside(ax)
 
     group2 = [1, 4]
