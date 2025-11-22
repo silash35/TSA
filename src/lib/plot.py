@@ -74,17 +74,3 @@ def plot_comparison(cycles, real_y, model_y, model_name):
     # plt.show()
     plt.savefig(f"../figures/comparision-{model_name}.png")
     plt.close()
-
-
-def plot_loss(train_loss, validation_loss, model_name):
-    plt.figure()
-    plt.plot(train_loss, label="Training Loss")
-    plt.plot(validation_loss, label="Validation Loss")
-    plt.xlabel("Epoch")
-    plt.ylabel("Loss")
-    plt.title(f"Loss over Epochs ({model_name})")
-    plt.legend()
-    # plt.show()
-
-    plt.savefig(f"../figures/loss-{model_name}.png")
-    plt.close()
