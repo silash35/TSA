@@ -34,3 +34,11 @@ u_ref = u[ref_idx]
 # --- Calcular desvios ---
 y_desvio = y - np.tile(y_ref, (y.shape[0], 1))
 u_desvio = u - np.tile(u_ref, (u.shape[0], 1))
+
+# --- Limites ---
+
+u_min = np.array([600, 187, 130, 80])
+u_max = np.array([715, 265, 140, 115])
+
+u_min_desvio = u_min - u_ref
+u_max_desvio = u_max - u_ref
