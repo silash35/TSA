@@ -1,0 +1,43 @@
+\section{Formulação do MPC}
+
+\begin{frame}[allowframebreaks]
+  \begin{equation}
+    \begin{aligned}
+      \min_{\mathbf{U}} \quad &
+      J(\mathbf{U})                                                                      \\
+      \text{s.a.:} \quad      &
+      y(k+i+1) = A\,y(k+i) + B
+      \begin{bmatrix}
+        u(k+i-1) \\
+        u(k+i)
+      \end{bmatrix}, \qquad i=0\dots N_p-1,                                              \\
+                              & u_{\min} \le u(k+i) \le u_{\max}, \qquad i=0\dots N_c-1, \\
+                              & u(k+i)=u(k+N_c-1), \qquad i\ge N_c.
+    \end{aligned}
+  \end{equation}
+
+  Onde:
+  \begin{align}
+    J(\mathbf{U}) & =
+    \sum_{i=1}^{N_p}
+    \left( y(k+i) - y_{SP} + \nu(k) \right)^{T}
+    Q
+    \left( y(k+i) - y_{SP} + \nu(k) \right)
+    \\[4pt]
+                  & \quad+
+    \sum_{i=0}^{N_c-1}
+    \Delta u(k+i)^{T}
+    R
+    \Delta u(k+i)
+  \end{align}
+
+  com
+
+  $$\Delta u(k+i) = u(k+i) - u(k+i-1),$$
+
+  e o termo integrador ($\nu$) é atualizado por
+
+  $$\nu(k) = \nu(k-1) + S\left( y(k-1) - y_{SP} \right).$$
+
+  $y(k)$ representa o vetor de saídas do sistema no ciclo $k$, $u(k)$ é o vetor de entradas de controle, $y_{SP}$ é o setpoint desejado, $A$ e $B$ são as matrizes identificadas do modelo do sistema. $N_p$ é o horizonte de predição, $N_c$ é o horizonte de controle, $u_{\min}$ e $u_{\max}$ são os limites das variáveis manipuladas, $Q$ e $R$ são, respectivamente, os pesos para a saída e a variação de controle. $S$ representa os pesos do termo integrador.
+\end{frame}
