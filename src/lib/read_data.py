@@ -9,19 +9,23 @@ t_rinse = df["t_rinse"].values
 t_blow = df["t_blow"].values
 t_purge = df["t_purge"].values
 
+u_labels = ["$t_{feed}$", "$t_{rinse}$", "$t_{blow}$", "$t_{purge}$"]
+
+y_labels = [
+    "Pureza do H$_2$",
+    "Pureza do CO$_2$",
+    "Recuperação CO$_2$",
+]
+
 purity_H2 = df["purity_H2"].values
-H2_CO_ratio = df["H2_CO_ratio"].values
 purity_CO2 = df["purity_CO2"].values
 recovery_CO2 = df["recovery_CO2"].values
-productivity = df["productivity"].values
 
 y = np.array(
     [
         purity_H2,
-        H2_CO_ratio,
         purity_CO2,
         recovery_CO2,
-        productivity,
     ]
 ).T
 u = np.array([t_feed, t_rinse, t_blow, t_purge]).T
