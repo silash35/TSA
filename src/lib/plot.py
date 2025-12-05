@@ -51,7 +51,7 @@ def plot_comparison(cycles, real_y, model_y, model_name):
 
 def plot_control(cycles, u, y, sp, u_sp, model_name: str):
     # --- Criar subplots ---
-    _, axes = plt.subplots(2, 1, sharex=True, figsize=(10, 10))
+    _, axes = plt.subplots(2, 1, sharex=True, figsize=(10, 7))
 
     # Entradas
     for i in range(len(u_labels)):
