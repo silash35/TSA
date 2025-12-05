@@ -3,50 +3,45 @@
 \begin{frame}[allowframebreaks]
   \begin{equation}
     \begin{aligned}
-      \min_{\Delta\mathbf{U}} \quad &
-      J(\Delta\mathbf{U})
+      \min_{\Delta u_k} \quad &
+      \sum_{i=1}^{N_p}
+      \left( y(k+i) - y_{SP} - \nu \right)^{T}
+      Q
+      \left( y(k+i) - y_{SP} - \nu \right)
       \\[4pt]
-      \text{s.a.:} \quad            &
-      y(k+i+1)
-      = A\,y(k+i)
+                              & \quad +
+      \sum_{i=1}^{N_c}
+      \Delta u(k+i)^{T}\,
+      R\,
+      \Delta u(k+i)
+      \\[6pt]
+      \text{s.a.:} \quad
+                              & y(k+i)
+      = A\,y(k+i-1)
       + B
       \begin{bmatrix}
         u(k+i-1) \\
         u(k+i)
       \end{bmatrix},
-      \qquad i = 0\dots N_p-1,
-      \\[6pt]
-                                    &
-      u(k+i) = u(k-1) + \sum_{j=0}^{i} \Delta u(k+j),
-      \qquad i = 0\dots N_c-1,
-      \\[6pt]
-                                    &
-      u_{\min} \le u(k+i) \le u_{\max}, \qquad i = 0\dots N_c-1.
+      \qquad i = 1,\dots,N_p,
+      \\[10pt]
+                              &
+      u(k+i)=u(k)+\displaystyle\sum_{j=1}^{i}\Delta u(k+j),\qquad i=1,\dots,N_c,
+      \\[14pt]
+                              &
+      u_{\min} \le u(k+i) \le u_{\max},
+      \qquad i = 1,\dots,N_c.
     \end{aligned}
   \end{equation}
 
-  \bigskip
-
-  Onde:
-
-  \begin{align}
-    J(\Delta\mathbf{U}) & =
-    \sum_{i=1}^{N_p}
-    \left( y(k+i) - y_{SP} \right)^{T}
-    Q
-    \left( y(k+i) - y_{SP} \right)
-    \\[4pt]
-                        & \quad +
-    \sum_{i=0}^{N_c-1}
-    \Delta u(k+i)^{T}\,
-    R\,
-    \Delta u(k+i),
-  \end{align}
-
-  com
-
+  O termo integrador é atualizado por:
   \[
-    \Delta\mathbf{U} =
+    \nu(k)=\nu(k-1)+S\,\bigl(y(k-1)-y_{SP}(k)\bigr),
+  \]
+
+  e o vetor de decisão é:
+  \[
+    \Delta u_k =
     \begin{bmatrix}
       \Delta u(k)^{T}   &
       \Delta u(k+1)^{T} &
@@ -55,12 +50,11 @@
     \end{bmatrix}^{T}.
   \]
 
-  \medskip
-
-  $y(k)$ é o vetor de saídas, $u(k)$ o vetor de entradas,
-  $y_{SP}$ o setpoint, $A$ e $B$ são as matrizes do modelo ARX,
-  $N_p$ é o horizonte de predição, $N_c$ o horizonte de controle.
-  $u_{\min}$ e $u_{\max}$ são os limites das entradas.
-  $Q$ e $R$ são os pesos da saída e da variação de controle.
-
+  $y(k)$ é o vetor de saídas;
+  $u(k)$ o vetor de entradas;
+  $A$ e $B$ são as matrizes identificadas do sistema;
+  $N_p$ e $N_c$ são os horizontes de predição e de controle;
+  $Q$ e $R$ são os pesos da saída e da variação de controle;
+  $S$ representa os pesos do integrador;
+  $u_{\min}$ e $u_{\max}$ são os limites das variáveis manipuladas.
 \end{frame}
