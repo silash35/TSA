@@ -79,5 +79,5 @@ def plot_control(cycles, u, y, sp, u_sp, model_name: str):
         ax.grid(True)
 
     plt.tight_layout()
-    plt.savefig(f"../figures/{model_name}.svg")
+    plt.savefig(f"../figures/{model_name}.png")
     plt.close()
