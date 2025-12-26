@@ -4,69 +4,47 @@ clear
 close all
 clc
 tic
-s = tf('s'); % defining the Laplace's variables
-Ts = 1     ; % sampling time [=] min
 
-% Nominal model (used by MPC)
-g = [2.3/s         -0.7/s 
-     4.7/(9.3*s +1) 1.4/(6.8*s+1)] ; % transfer function matrix
-io = 0*[0 0 0; 7 2 3]; % time delays associated with transfer function matrix
-[ny,nu] = size(g);
-gd = c2d(g,Ts,'zoh');
+% Ponto de operação em variavel de engenharia
+% Usado como referência para definição de variáveis em desvio.
+y_ref = [66.61255271 89.50113667 93.26343938]';
+u_ref = [680 265 130 80]';
 
-for i = 1:ny
-    for j = 1:nu
-        [num,den]=tfdata(gd(i,j),'v');
-        delay = io(i,j);
-        gd(i,j) = tf([zeros(1,delay/Ts) num],[den zeros(1,delay/Ts)],Ts);
-    end
-end
-[Atil,Btil,Ctil,Dtil] = ssdata(gd) ;
+% MPC model
+Atil = [ 0.37067676 0.03019531 0.01725641
+      0.68652094 0.57037991 0.02130872
+      2.46894109 1.32869029 0.0664796  ];
+
+Btil = [ -0.00726326 -0.01558     0.00369239  0.02208961
+       0.01693359  0.05265305  0.01081026 -0.07745152
+      -0.0253843  -0.09184406  0.04534568  0.24170092 ];
+
+Ctil = eye(3);
+
 [A,B,C]=immpc(Atil,Btil,Ctil);
-% sysd = ss(Atil,Btil,Ctil,Dtil,Ts); % It is always necessary specify time sampling when discrete systems are considered here
-% figure(1); step(sysd,80)
-% hold on  ; step(g,80)
 
 % Plant model
-gp = [2.3*1.01/s           -0.7*1.02/s 
-     1.1*4.7/(1.1*9.3*s +1) 1.05*1.4/(0.8*6.8*s+1)] ; % transfer function matrix
-io = 0*[0 0 0; 7 2 3]; % time delays associated with transfer function matrix
-[ny,nu] = size(gp);
-gpd = c2d(gp,Ts,'zoh');
-
-for i = 1:ny
-    for j = 1:nu
-        [num,den]=tfdata(gpd(i,j),'v');
-        delay = io(i,j);
-        gpd(i,j) = tf([zeros(1,delay/Ts) num],[den zeros(1,delay/Ts)],Ts);
-    end
-end
-
-[Atilp,Btilp,Ctilp,Dtilp] = ssdata(gpd) ;
-[Ap,Bp,Cp]=immpc(Atilp,Btilp,Ctilp);
-% sysdp = ss(Atilp,Btilp,Ctilp,Dtilp,Ts); % It is always necessary specify time sampling when discrete systems are considered here
-% figure(2); step(sysdp,80)
-% hold on  ; step(gp,80)
+Ap=A;Bp=B;Cp=C;
 
 % Updating the dimensions of variables
-nu=size(g,2); % Number of manipulated inputs
-ny=size(g,1); % Number of controlled outputs
+nu=size(B,2); % Number of manipulated inputs
+ny=size(C,1); % Number of controlled outputs
 nx=size(A,1); % Number of system states
 
 % tuning parameters of MPC
 p=120;% Output prediction horizon
 m=3;% Input horizon
 nsim=250;% Simulation time in sampling periods
-q=[0.5,1];% Output weights
-r=[.01,.01];% Input weights
 
-umax=[10 10]';
-umin=[0  0]';
-dumax=[1 1]';
+q=[1,1,1]   ; % Output weights
+r=[1,1,1,1] ; % Input moves weights
+umax=[715 265 140 115]' - u_ref; % maximum value for inputs
+umin=[600 187 130 80]' - u_ref; % minimum value for inputs
+dumax=[99999 99999 99999 99999]'; % maximum variation for input moves
 
-% Characteristics of process 
-uss = [4.7 2.65]';
-yss = [47 52.5]';
+% Characteristics of process
+uss = [0 0 0 0]';
+yss = [0 0 0]';
 
 %  Defining the initial conditions (deviation variables)
 xmk=zeros(nx,1); % It starts the steady-state
@@ -84,27 +62,27 @@ for in=1:nsim
     yk(:,in)=ypk+yss;
 
     if in <= 30
-        ys=[43 54]'; % Set-point of the outputs
+        ys=[0 0 0]'; % Set-point of the outputs
     else
-        ys=[43 54]';
+        ys=[2.60473585 -8.24649468 8.04911466]';
     end
-    
+
     [dukk,Vk]=issmpc(p,m,nu,ny,q,r,A,B,C,umax-uss,umin-uss,dumax,ys-yss,uk_1,xmk);
     duk=dukk(1:nu); % receding horizon
     Jk(in)=Vk; % control cost
-    
+
     %Correction of the last control input
      xmk=A*xmk+B*duk;
      ymk=C*xmk;
-  if in==100 
-      xpk=Ap*xpk+Bp*(duk+0.2*[1 1]'); % inserting unmeasured disturbance into plant
+  if in==100
+      xpk=Ap*xpk+Bp*(duk+0.2*[1 1 1 1]'); % inserting unmeasured disturbance into plant
 %       xpk=Ap*xpk+Bp*duk;
-      ypk=Cp*xpk; % plant measurement 
+      ypk=Cp*xpk; % plant measurement
   else
       xpk=Ap*xpk+Bp*duk;
-      ypk=Cp*xpk; % plant measurement 
+      ypk=Cp*xpk; % plant measurement
   end
-  
+
   %Correction of the last measurement
   de=ypk-ymk;
   xmk=xmk+Kf*de;
@@ -124,7 +102,6 @@ for j=1:nc
     yrot = ['y_' in];
     ylabel(yrot)
 end
-% legend('PV','set-point')
 
 nc=size(uk,1);
 figure(2)
@@ -142,57 +119,4 @@ plot(Jk)
 xlabel('tempo nT')
 ylabel('Cost function')
 
-% data print
-% ======================================
-% outputs
-% ======================================
-y1 = [1:nsim;yk(1,:)]; 
-y2 = [1:nsim;yk(2,:)];
-ysp1 = [1:nsim;ysp(1,:)]; 
-ysp2 = [1:nsim;ysp(2,:)];
-
-[fid,msg] = fopen('y1.dat','w');
-fprintf(fid, '%6.3f  %6.3f\n',y1)
-status = fclose(fid);
-
-[fid,msg] = fopen('y2.dat','w');
-fprintf(fid, '%6.3f  %6.3f\n',y2)
-status = fclose(fid);
-
-[fid,msg] = fopen('ysp1.dat','w');
-fprintf(fid, '%6.3f  %6.3f\n',ysp1)
-status = fclose(fid);
-
-[fid,msg] = fopen('ysp2.dat','w');
-fprintf(fid, '%6.3f  %6.3f\n',ysp2)
-status = fclose(fid);
-% ======================================
-
-% ======================================
-% inputs
-% ======================================
-u1 = [1:nsim;uk(1,:)]; 
-u2 = [1:nsim;uk(2,:)];
-% u3 = [1:nsim;uk(3,:)];
-
-[fid,msg] = fopen('u1.dat','w');
-fprintf(fid, '%6.3f  %6.3f\n',u1)
-status = fclose(fid);
-
-[fid,msg] = fopen('u2.dat','w');
-fprintf(fid, '%6.3f  %6.3f\n',u2)
-status = fclose(fid);
-
-% [fid,msg] = fopen('u3.dat','w');
-% fprintf(fid, '%6.3f  %6.3f\n',u3)
-% status = fclose(fid);
-% ======================================
-
-% ======================================
-% cost
-% ======================================
-% V = [1:nsim;Jk(1,:)]; 
-% [fid,msg] = fopen('V.dat','w');
-% fprintf(fid, '%6.3f  %6.3f\n',V)
-% status = fclose(fid);
-
+save('output.mat', 'uk', 'yk', 'ysp');
