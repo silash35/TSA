@@ -3,6 +3,8 @@ close all
 clc
 tic
 
+% Ponto de operação em variavel de engenharia
+% Usado como referência para definição de variáveis em desvio.
 y_ref = [66.61255271 89.50113667 93.26343938]';
 u_ref = [680 265 130 80]';
 
@@ -18,9 +20,8 @@ B = [ -0.00726326 -0.01558     0.00369239  0.02208961
       -0.0253843  -0.09184406  0.04534568  0.24170092 ];
 
 C = eye(3);
-D = zeros(3,4);
 
-Ap=A; Bp=B; Cp=C; Dp = D; % defining plant model
+Ap=A; Bp=B; Cp=C; % defining plant model
 
 nx=size(A,1); % Number of system states
 p=120       ; % Output prediction horizon
@@ -34,25 +35,16 @@ dumax=[99999 99999 99999 99999]'; % maximum variation for input moves
 
 uss = [0 0 0 0]'; % steady-state of the inputs
 yss = [0 0 0]'; % steady-state of the outputs
-xss = calc_ss(Ap,Cp,nx,ny,yss); % steady-state of the states
+
+% Setpoint
+ysp = zeros(ny,nsim);
 ys  = [2.60473585 -8.24649468 8.04911466]';% Set-point of the outputs
-% ys=yss;
+ysp(:,101:end) = repmat(ys, 1, nsim-100);
 
 % Initial condition
 u0 = [-1 2 1 0]';
 y0 = [-2 2 3]';
-x0 = calc_ss(Ap,Cp,nx,ny,y0);
-[uk,yk,Jk]=ssmpc(p,m,nu,ny,nx,nsim,q,r,A,B,C,Ap,Bp,Cp,umax,umin,dumax,ys,uss,yss,xss,y0,u0,x0);
-
-ysp=[];
-for i=1:nsim
-    if i<= 100
-        ys=yss;
-    else
-        ys=[2.60473585 -8.24649468 8.04911466]';
-    end
-    ysp=[ysp ys];
-end
+[uk,yk,Jk]=ssmpc(p,m,nu,ny,nx,nsim,q,r,A,B,C,Ap,Bp,Cp,umax,umin,dumax,ys,uss,yss,y0,u0);
 
 nc=size(yk,1);
 figure(1)
@@ -84,6 +76,5 @@ xlabel('tempo nT')
 ylabel('Cost function')
 
 save('output.mat', 'uk', 'yk', 'ysp');
-
 
 toc
