@@ -1,5 +1,3 @@
-% Control of a distillation column subsystem (Alvarez et al, 2009) with MPC
-%  basead on state-space model in the incremental form
 clear
 close all
 clc
@@ -47,47 +45,37 @@ uss = [0 0 0 0]';
 yss = [0 0 0]';
 
 %  Defining the initial conditions (deviation variables)
-xmk=zeros(nx,1); % It starts the steady-state
+xmk=[-2 2 3 -1 2 1 0]';
 xpk=xmk;
 ypk=Cp*xpk;
-uk_1=uss-uss;
-
-% State observer
-Kf = FKalman(ny,A,C,100);
+uk_1=[-1 2 1 0]';
 
 % Starting simulation
 ysp=[];
 for in=1:nsim
-    uk(:,in)=uk_1+uss;
-    yk(:,in)=ypk+yss;
+    uk(:,in)=uk_1;
+    yk(:,in)=ypk;
 
-    if in <= 30
+    if in <= 100
         ys=[0 0 0]'; % Set-point of the outputs
     else
         ys=[2.60473585 -8.24649468 8.04911466]';
     end
 
-    [dukk,Vk]=issmpc(p,m,nu,ny,q,r,A,B,C,umax-uss,umin-uss,dumax,ys-yss,uk_1,xmk);
+    [dukk,Vk]=issmpc(p,m,nu,ny,q,r,A,B,C,umax,umin,dumax,ys,uk_1,xmk);
     duk=dukk(1:nu); % receding horizon
     Jk(in)=Vk; % control cost
 
     %Correction of the last control input
-     xmk=A*xmk+B*duk;
-     ymk=C*xmk;
-  if in==100
-      xpk=Ap*xpk+Bp*(duk+0.2*[1 1 1 1]'); % inserting unmeasured disturbance into plant
-%       xpk=Ap*xpk+Bp*duk;
-      ypk=Cp*xpk; % plant measurement
-  else
-      xpk=Ap*xpk+Bp*duk;
-      ypk=Cp*xpk; % plant measurement
-  end
+    xmk=A*xmk+B*duk;
+    ymk=C*xmk;
 
-  %Correction of the last measurement
-  de=ypk-ymk;
-  xmk=xmk+Kf*de;
-  uk_1=duk+uk_1;
-  ysp=[ysp ys];
+    xpk=Ap*xpk+Bp*duk;
+    ypk=Cp*xpk; % plant measurement
+
+    %Correction of the last measurement
+    uk_1=duk+uk_1;
+    ysp=[ysp ys];
 end
 
 nc=size(yk,1);
@@ -120,3 +108,4 @@ xlabel('tempo nT')
 ylabel('Cost function')
 
 save('output.mat', 'uk', 'yk', 'ysp');
+toc
