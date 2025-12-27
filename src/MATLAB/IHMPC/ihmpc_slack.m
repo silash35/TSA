@@ -6,9 +6,7 @@ Ts=1; % sampling time
 g = [5/(10*s+1) 8/(8*s+1)    0
      0          3.3/(15*s+1) 7/(10*s+1)
      6/(15*s+1) 0            20/(20*s+1)]; % transfer function matrix
-% g = [-2.5/(9*s+1)   5.8/(9*s+1) 
-%      -1.5/(7.5*s+1) 5.3/(10.2*s+1)]; 
- 
+
 [A,B,C,D0,Dd,F,Psi,N]=opom(g,Ts); % it creates opom model
 Ap=A; Bp=B; Cp=C;
 ny = size(C,1); % output variables of the system
@@ -17,17 +15,8 @@ nx = size(A,1); % state variables of the system
 nd = size(F,1); % states related to the stable pole of the system
 
 % parameters of the IHMPC
-% nsim = 200;      % simulation time
-% m = 3;           % control horizon
-% qy = [1 1];      % output weights
-% qu = [];      % output weights
-% r  = 1*[1 1]; % move weights
-sy = [1e2 1e2 1e2]; % weights of output slacks 
-% % si = [1 1 1].*0; % weights of integrating slacks 
-% 
-% umin = -[1 1]'; % lower bounds of inputs
-% umax =  [1 1]'; % upper bounds of inputs
-% dumax=  0.1*[1 1]' ; % maximum variation of input moves
+sy = [1e2 1e2 1e2]; % weights of output slacks
+
 nsim = 300;      % simulation time
 m = 3;           % control horizon
 qy = [1 1 1];      % output weights
@@ -37,7 +26,7 @@ r  = 1*[1 1 1]; % move weights
 umin = -[0.5 0.5 0.1]'; % lower bounds of inputs
 umax =  [0.5 0.5 0.1]'; % upper bounds of inputs
 dumax=  0.1*[0.5 0.5 0.1]' ; % maximum variation of input moves
-% ========================================================================= 
+% =========================================================================
 
 % Creating the Qy, Qybar and Rbar matrices
 aux1=[];
@@ -94,13 +83,6 @@ H = [(Dm0+Fu)'*Qybar*(Dm0+Fu)+Futil'*Qbar*Futil+Rbar -(Dm0+Fu)'*Qybar*Ibar
 
 % defining the initial conditions
 % =========================================================================
-% y0 = [0 0]';
-% u0 = [-0.1 0.1]';
-% uk_1 = u0;
-% xmk = [y0; ones(nd,1)]; % states of model
-% % ymk = C*xmk; % outputs of model
-% xpk = [y0; zeros(nd,1)]; % states of plant
-% ypk = Cp*xpk               ; % outputs of model
 y0 = [1 1 1]';
 u0 = [0 0 0]';
 uk_1 = u0;
@@ -114,14 +96,6 @@ yspp=[];
 for in=1:nsim
 ur(:,in) = uk_1  ;
 yr(:,in) = ypk   ;
-    % defining the desired output references
-%     if in <= 100
-%         ysp    = [0.5 -0.1]'    ;
-% %     elseif in >= 10 && in <= 199
-% %         ysp    = [55 1.2]'    ;
-%     else
-%         ysp    = [1 -0.1]'    ;
-%     end
     if in <= 200
         ysp    = [2 2 2]'    ;
 %     elseif in >= 10 && in <= 199
@@ -135,14 +109,14 @@ cf = [(Ibar*xmk(1:ny)+Fx*xmk(ny+1:end)-Ibar*ysp)'*Qybar*Dm0+...
 c = (Ibar*xmk(1:ny)+Fx*xmk(ny+1:end)-Ibar*ysp)'*Qybar*(Ibar*xmk(1:ny)+Fx*xmk(ny+1:end)-Ibar*ysp)+...
      (F^m*xmk(ny+1:end))'*Qbar*(F^m*xmk(ny+1:end));
 
-% Including inequality constraints   
-Aineq = [ Mtil zeros(m*nu,ny) 
+% Including inequality constraints
+Aineq = [ Mtil zeros(m*nu,ny)
          -Mtil zeros(m*nu,ny)];
 
-Bineq = [ Itil*(umax-uk_1) 
-          Itil*(uk_1-umin) ];     
-     
-% Including equality constraints 
+Bineq = [ Itil*(umax-uk_1)
+          Itil*(uk_1-umin) ];
+
+% Including equality constraints
 Aeq = [Dtil0 -eye(ny)];
 
 Beq = ysp-xmk(1:ny);
@@ -152,7 +126,7 @@ UB = [Itil*dumax; ones(ny,1)*Inf];
 LB = [-Itil*dumax; -ones(ny,1)*Inf];
 
 % options = optimset('display','iter')
-[dd,fvin,flagin]=quadprog(H,cf,Aineq,Bineq,Aeq,Beq,LB,UB); 
+[dd,fvin,flagin]=quadprog(H,cf,Aineq,Bineq,Aeq,Beq,LB,UB);
 
 % storing calculated data
 fval(in) = dd'*H*dd + 2*cf*dd + c  ; % control cost value
@@ -164,7 +138,7 @@ sky(:,in)=dd(nu*m+1:m*nu+ny)       ; % slacks of outputs
 duk = dd(1:nu)   ; % receding horizon
 uk_1 = duk + uk_1; % inputs to be implemented in plant
 xpk = Ap*xpk+Bp*duk; % states of plant
-ypk = Cp*xpk      ; % output of plant   
+ypk = Cp*xpk      ; % output of plant
 xmk=xpk; % these should be computed through of state estimator (e.g Kalman filter)
 % ymk=C*xmk;
 yspp=[yspp ysp];
