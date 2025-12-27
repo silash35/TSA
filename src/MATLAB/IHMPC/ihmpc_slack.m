@@ -1,13 +1,30 @@
 clear all
 close all
 clc
-s=tf('s'); % defining Laplace's variables
-Ts=1; % sampling time
-g = [5/(10*s+1) 8/(8*s+1)    0
-     0          3.3/(15*s+1) 7/(10*s+1)
-     6/(15*s+1) 0            20/(20*s+1)]; % transfer function matrix
 
-[A,B,C,D0,Dd,F,Psi,N]=opom(g,Ts); % it creates opom model
+% Ponto de operação em variavel de engenharia
+% Usado como referência para definição de variáveis em desvio.
+y_ref = [66.61255271 89.50113667 93.26343938]';
+u_ref = [680 265 130 80]';
+
+% MPC model
+Ts = 1;
+Atil = [ 0.37067676 0.03019531 0.01725641
+         0.68652094 0.57037991 0.02130872
+         2.46894109 1.32869029 0.0664796  ];
+
+Btil = [ -0.00726326 -0.01558     0.00369239  0.02208961
+          0.01693359  0.05265305  0.01081026 -0.07745152
+         -0.0253843  -0.09184406  0.04534568  0.24170092 ];
+
+Ctil = eye(3);
+Dtil = zeros(size(Ctil,1), size(Btil,2));
+
+sysd = ss(Atil, Btil, Ctil, Dtil, Ts);
+Gz = tf(sysd);
+
+
+[A,B,C,D0,Dd,F,Psi,N]=opom(Gz); % it creates opom model
 Ap=A; Bp=B; Cp=C;
 ny = size(C,1); % output variables of the system
 nu = size(B,2); % input variables of the system
@@ -15,17 +32,17 @@ nx = size(A,1); % state variables of the system
 nd = size(F,1); % states related to the stable pole of the system
 
 % parameters of the IHMPC
-sy = [1e2 1e2 1e2]; % weights of output slacks
+sy = [1e3 1e3 1e3]; % weights of output slacks
 
-nsim = 300;      % simulation time
+nsim = 250;      % simulation time
 m = 3;           % control horizon
 qy = [1 1 1];      % output weights
 qu = [];      % output weights
-r  = 1*[1 1 1]; % move weights
+r  = [1 1 1 1]; % move weights
 
-umin = -[0.5 0.5 0.1]'; % lower bounds of inputs
-umax =  [0.5 0.5 0.1]'; % upper bounds of inputs
-dumax=  0.1*[0.5 0.5 0.1]' ; % maximum variation of input moves
+umax=[715 265 140 115]' - u_ref; % maximum value for inputs
+umin=[600 187 130 80]' - u_ref; % minimum value for inputs
+dumax=[99999 99999 99999 99999]'; % maximum variation for input moves
 % =========================================================================
 
 % Creating the Qy, Qybar and Rbar matrices
@@ -83,25 +100,24 @@ H = [(Dm0+Fu)'*Qybar*(Dm0+Fu)+Futil'*Qbar*Futil+Rbar -(Dm0+Fu)'*Qybar*Ibar
 
 % defining the initial conditions
 % =========================================================================
-y0 = [1 1 1]';
-u0 = [0 0 0]';
-uk_1 = u0;
-xmk = [y0; ones(nd,1)]; % states of model
-xpk = [y0; ones(nd,1)]; % states of plant
-ypk = Cp*xpk               ; % outputs of model
-ysp=y0;
+u0 = [0 0 0 0]';
+y0 = [0 0 0]';
+ysp=[0 0 0]';
 
+uk_1 = u0;
+
+xmk = [y0; zeros(nd,1)]; % states of model
+xpk = [y0; zeros(nd,1)]; % states of plant
+ypk = Cp*xpk               ; % outputs of model
 % =========================================================================
 yspp=[];
 for in=1:nsim
 ur(:,in) = uk_1  ;
 yr(:,in) = ypk   ;
-    if in <= 200
-        ysp    = [2 2 2]'    ;
-%     elseif in >= 10 && in <= 199
-%         ysp    = [55 1.2]'    ;
+    if in <= 100
+        ysp    = [0 0 0]'    ;
     else
-        ysp    = 2.5*[1 1 1]'    ;
+        ysp    = [2.60473585 -8.24649468 8.04911466]'    ;
     end
 cf = [(Ibar*xmk(1:ny)+Fx*xmk(ny+1:end)-Ibar*ysp)'*Qybar*Dm0+...
      (Ibar*xmk(1:ny)+Fx*xmk(ny+1:end)-Ibar*ysp)'*Qybar*Fu+(F^m*xmk(ny+1:end))'*Qbar*Futil ...
@@ -155,9 +171,7 @@ for j=1:nc
     in = num2str(j);
     yrot = ['y_' in];
     ylabel(yrot)
-%     axis([0 nsim 0 4])
 end
-% legend('PV','set-point')
 
 nc=size(ur,1);
 figure(2)
@@ -191,3 +205,9 @@ subplot(nc,1,j)
     yrot = ['\delta_' in];
     ylabel(yrot)
 end
+
+uk = ur;
+yk = yr;
+ysp = yspp;
+
+save('output.mat', 'uk', 'yk', 'ysp');
