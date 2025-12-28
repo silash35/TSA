@@ -1,4 +1,4 @@
-function [ur,yr,Jk]=ssmpc(p,m,nu,ny,nx,nsim,q,r,A,B,C,Ap,Bp,Cp,umax,umin,dumax,yspp,uss,yss,y0,u0)
+function [ur,yr,Jk]=ssmpc(p,m,nu,ny,nx,nsim,q,r,A,B,C,Ap,Bp,Cp,umax,umin,y0,u0)
 %  Simulates the closed-loop system with MPC based on a state-space model in the
 %  positional form
 %  Output variables:
@@ -17,23 +17,14 @@ function [ur,yr,Jk]=ssmpc(p,m,nu,ny,nx,nsim,q,r,A,B,C,Ap,Bp,Cp,umax,umin,dumax,y
 %  A,B,C - State, input and output matrices of the state-space model used in the MPC controller
 %  Ap,Bp,Cp - State, input and output matrices of the state-space model used to represent the true plant
 %  umax,umin - Max and min values for the inputs (dimension: ny x 1)
-%  dumax - Max input change (dimension: ny x 1)
-%  ys   - Set-points for the outputs (dimension: ny x 1)
-%  yss  - Steady-state of outputs (dimension: ny x 1)
-%  uss  - Steady-state of inputs  (dimension: nu x 1)
 %  y0   - Initial value of outputs (dimension: ny x 1)
 %  u0   - Initial value of inputs  (dimension: nu x 1)
 
 % Defining the initial conditions (deviation variables)
-xpk=y0-yss ; % (dimension: nx x 1)
+xpk=y0 ; % (dimension: nx x 1)
 xmk=xpk    ; % (dimension: nx x 1)
-ypk=y0-yss ; % (dimension: ny x 1)
-uk_1=u0-uss; % (dimension: nu x 1)
-
-% ysp=[];
-% for i=1:p;
-%   ysp=[ysp;(ys-yss)]; % set-point vector (p.ny x 1)
-% end
+ypk=y0 ; % (dimension: ny x 1)
+uk_1=u0; % (dimension: nu x 1)
 
 Psi=[];ThA=[];
 for in=1:p;
@@ -91,19 +82,17 @@ H=Theta'*Qbar*Theta+IM'*Rbar*IM;
 H=(H+H')/2;
 
 % Auxiliary constraint matrix
-Dumax=dumax;
-Umax=umax-uss;
-Umin=umin-uss;
+Umax=umax;
+Umin=umin;
 for i=1:m-1;
-    Umax=[Umax;umax-uss];
-    Umin=[Umin;umin-uss];
-    Dumax=[Dumax;dumax];
+    Umax=[Umax;umax];
+    Umin=[Umin;umin];
 end
 
 % Starting simulation
 for in=1:nsim
-    ur(:,in)=uk_1+uss;
-    yr(:,in)=ypk+yss;
+    ur(:,in)=uk_1;
+    yr(:,in)=ypk;
     if in <= 20
         ys = [0; 0; 0];
     elseif in <= 80
@@ -115,23 +104,20 @@ for in=1:nsim
     end
     ysp=[];
     for i=1:p;
-        ysp=[ysp;(ys-yss)]; % set-point vector (p.ny x 1)
+        ysp=[ysp;(ys)]; % set-point vector (p.ny x 1)
     end
     el = Psi*xmk-ysp;
     ct = el'*Qbar*Theta-uk_1'*Ibar'*Rbar*IM;
     c = (Psi*xmk-ysp)'*Qbar*(Psi*xmk-ysp)+uk_1'*Ibar'*Rbar*Ibar*uk_1;
 
     % Including constraints on the input changes
-    Ain=[IM;-IM];
-    Bin=[Dumax+Ibar*uk_1;Dumax-Ibar*uk_1];
     options=optimoptions('quadprog','display','off');
-    ukk=quadprog(H,ct,Ain,Bin,[],[],Umin,Umax,[],options);
+    ukk=quadprog(H,ct,[],[],[],[],Umin,Umax,[],options);
     uk=ukk(1:nu); % receding horizon
     Jk(in)=ukk'*H*ukk+2*ct*ukk+c;
 
     % Correction of the last control input
     xmk=A*xmk+B*uk;
-    ymk=C*xmk;
     if in>=101
         xpk=Ap*xpk+Bp*(uk);
         ypk=Cp*xpk;

@@ -42,7 +42,6 @@ r  = [0.2 0.5 0.5 0.5]; % move weights
 
 umax=[715 265 140 115]' - u_ref; % maximum value for inputs
 umin=[600 187 130 80]' - u_ref; % minimum value for inputs
-dumax=[99999 99999 99999 99999]'; % maximum variation for input moves
 % =========================================================================
 
 % Creating the Qy, Qybar and Rbar matrices
@@ -128,33 +127,29 @@ for in=1:nsim
         (Ibar*ysp-Fx*xmk(ny+1:end)-Ibar*xmk(1:ny))'*Qybar*Ibar];
     c = (Ibar*xmk(1:ny)+Fx*xmk(ny+1:end)-Ibar*ysp)'*Qybar*(Ibar*xmk(1:ny)+Fx*xmk(ny+1:end)-Ibar*ysp)+...
         (F^m*xmk(ny+1:end))'*Qbar*(F^m*xmk(ny+1:end));
-    
+
     % Including inequality constraints
     Aineq = [ Mtil zeros(m*nu,ny)
         -Mtil zeros(m*nu,ny)];
-    
+
     Bineq = [ Itil*(umax-uk_1)
         Itil*(uk_1-umin) ];
-    
+
     % Including equality constraints
     Aeq = [Dtil0 -eye(ny)];
-    
+
     Beq = ysp-xmk(1:ny);
-    
-    % Including constraints of lower and upper bounds
-    UB = [Itil*dumax; ones(ny,1)*Inf];
-    LB = [-Itil*dumax; -ones(ny,1)*Inf];
-    
+
     % options = optimset('display','iter')
-    [dd,fvin,flagin]=quadprog(H,cf,Aineq,Bineq,Aeq,Beq,LB,UB);
-    
+    [dd,fvin,flagin]=quadprog(H,cf,Aineq,Bineq,Aeq,Beq);
+
     % storing calculated data
     fval(in) = dd'*H*dd + 2*cf*dd + c  ; % control cost value
     flag(in) = flagin                  ; % exitflag of exit condition of the MATLAB's quadprog routine
     duuk(:,in) = dd(1:m*nu)            ; % prediction of input moves
     sky(:,in)=dd(nu*m+1:m*nu+ny)       ; % slacks of outputs
     % ski(:,in)=dd(m*nu+ny+1:(m+1)*nu+ny); % slacks of inputs
-    
+
     duk = dd(1:nu)   ; % receding horizon
     uk_1 = duk + uk_1; % inputs to be implemented in plant
     xpk = Ap*xpk+Bp*duk; % states of plant

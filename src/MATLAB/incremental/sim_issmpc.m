@@ -3,7 +3,7 @@
 clear
 close all
 clc
-tic
+
 % Ponto de operação em variavel de engenharia
 % Usado como referência para definição de variáveis em desvio.
 y_ref = [66.61255271 89.50113667 93.26343938]';
@@ -38,7 +38,6 @@ r=[0.2 0.5 0.5 0.5] ; % Input moves weights
 
 umax=[715 265 140 115]' - u_ref; % maximum value for inputs
 umin=[600 187 130 80]' - u_ref; % minimum value for inputs
-dumax=[99999 99999 99999 99999]'; % maximum variation for input moves
 
 %  Defining the initial conditions (deviation variables)
 xmk=zeros(nx,1); % It starts the steady-state
@@ -65,7 +64,7 @@ for in=1:nsim
         ys = [1.3533336; -2.90826548; 4.64134915];
     end
 
-    [dukk,Vk,flagin]=issmpc(p,m,nu,ny,q,r,A,B,C,umax,umin,dumax,ys,uk_1,xmk);
+    [dukk,Vk,flagin]=issmpc(p,m,nu,ny,q,r,A,B,C,umax,umin,ys,uk_1,xmk);
     duk=dukk(1:nu); % receding horizon
     Jk(in)=Vk; % control cost
     flag(in)=flagin;

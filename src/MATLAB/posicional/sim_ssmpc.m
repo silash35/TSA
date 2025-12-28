@@ -31,7 +31,6 @@ q=[1,1,1]   ; % Output weights
 r=[0.2 0.5 0.5 0.5] ; % Input moves weights
 umax=[715 265 140 115]' - u_ref; % maximum value for inputs
 umin=[600 187 130 80]' - u_ref; % minimum value for inputs
-dumax=[99999 99999 99999 99999]'; % maximum variation for input moves
 
 uss = [0 0 0 0]'; % steady-state of the inputs
 yss = [0 0 0]'; % steady-state of the outputs
@@ -55,7 +54,7 @@ end
 % Initial condition
 u0 = [0 0 0 0]';
 y0 = [0 0 0]';
-[uk,yk,Jk]=ssmpc(p,m,nu,ny,nx,nsim,q,r,A,B,C,Ap,Bp,Cp,umax,umin,dumax,ys,uss,yss,y0,u0);
+[uk,yk,Jk]=ssmpc(p,m,nu,ny,nx,nsim,q,r,A,B,C,Ap,Bp,Cp,umax,umin,y0,u0);
 
 nc=size(yk,1);
 figure(1)
