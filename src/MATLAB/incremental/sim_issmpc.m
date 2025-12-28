@@ -40,15 +40,11 @@ umax=[715 265 140 115]' - u_ref; % maximum value for inputs
 umin=[600 187 130 80]' - u_ref; % minimum value for inputs
 dumax=[99999 99999 99999 99999]'; % maximum variation for input moves
 
-% Characteristics of process
-uss = [0 0 0 0]'; % steady-state of the inputs
-yss = [0 0 0]'; % steady-state of the outputs
-
 %  Defining the initial conditions (deviation variables)
 xmk=zeros(nx,1); % It starts the steady-state
 xpk=xmk;
 ypk=Cp*xpk;
-uk_1=uss-uss;
+uk_1=[0 0 0 0]';
 
 % State observer
 Kf = FKalman(ny,A,C,100);
@@ -56,8 +52,8 @@ Kf = FKalman(ny,A,C,100);
 % Starting simulation
 ysp=[];
 for in=1:nsim
-    uk(:,in)=uk_1+uss;
-    yk(:,in)=ypk+yss;
+    uk(:,in)=uk_1;
+    yk(:,in)=ypk;
 
     if in <= 20
         ys = [0; 0; 0];
@@ -69,24 +65,24 @@ for in=1:nsim
         ys = [1.3533336; -2.90826548; 4.64134915];
     end
 
-    [dukk,Vk,flagin]=issmpc(p,m,nu,ny,q,r,A,B,C,umax-uss,umin-uss,dumax,ys-yss,uk_1,xmk);
+    [dukk,Vk,flagin]=issmpc(p,m,nu,ny,q,r,A,B,C,umax,umin,dumax,ys,uk_1,xmk);
     duk=dukk(1:nu); % receding horizon
     Jk(in)=Vk; % control cost
     flag(in)=flagin;
 
     %Correction of the last control input
-     xmk=A*xmk+B*duk;
-     ymk=C*xmk;
+    xmk=A*xmk+B*duk;
+    ymk=C*xmk;
 
-     xpk=Ap*xpk+Bp*duk;
-     ypk=Cp*xpk; % plant measurement
+    xpk=Ap*xpk+Bp*duk;
+    ypk=Cp*xpk; % plant measurement
 
 
-  %Correction of the last measurement
-  de=ypk-ymk;
-  xmk=xmk+Kf*de;
-  uk_1=duk+uk_1;
-  ysp=[ysp ys];
+    %Correction of the last measurement
+    de=ypk-ymk;
+    xmk=xmk+Kf*de;
+    uk_1=duk+uk_1;
+    ysp=[ysp ys];
 end
 
 nc=size(yk,1);
@@ -106,7 +102,7 @@ end
 nc=size(uk,1);
 figure(2)
 for j=1:nc
-subplot(nc,1,j)
+    subplot(nc,1,j)
     plot(uk(j,:),'k-')
     xlabel('tempo nT')
     in = num2str(j);
