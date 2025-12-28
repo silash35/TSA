@@ -10,12 +10,12 @@ u_ref = [680 265 130 80]';
 % MPC model
 Ts = 1;
 Atil = [ 0.37067676 0.03019531 0.01725641
-         0.68652094 0.57037991 0.02130872
-         2.46894109 1.32869029 0.0664796  ];
+    0.68652094 0.57037991 0.02130872
+    2.46894109 1.32869029 0.0664796  ];
 
 Btil = [ -0.00726326 -0.01558     0.00369239  0.02208961
-          0.01693359  0.05265305  0.01081026 -0.07745152
-         -0.0253843  -0.09184406  0.04534568  0.24170092 ];
+    0.01693359  0.05265305  0.01081026 -0.07745152
+    -0.0253843  -0.09184406  0.04534568  0.24170092 ];
 
 Ctil = eye(3);
 Dtil = zeros(size(Ctil,1), size(Btil,2));
@@ -96,7 +96,7 @@ end
 
 % creating the H matrix of QP
 H = [(Dm0+Fu)'*Qybar*(Dm0+Fu)+Futil'*Qbar*Futil+Rbar -(Dm0+Fu)'*Qybar*Ibar
-     -Ibar'*Qybar*(Dm0+Fu)                           Ibar'*Qybar*Ibar+S];
+    -Ibar'*Qybar*(Dm0+Fu)                           Ibar'*Qybar*Ibar+S];
 
 % defining the initial conditions
 % =========================================================================
@@ -112,8 +112,8 @@ ypk = Cp*xpk               ; % outputs of model
 % =========================================================================
 yspp=[];
 for in=1:nsim
-ur(:,in) = uk_1  ;
-yr(:,in) = ypk   ;
+    ur(:,in) = uk_1  ;
+    yr(:,in) = ypk   ;
     if in <= 20
         ysp    = [0 0 0]';
     elseif in <= 80
@@ -123,45 +123,45 @@ yr(:,in) = ypk   ;
     else
         ysp    = [1.3533336 -2.90826548 4.64134915]';
     end
-cf = [(Ibar*xmk(1:ny)+Fx*xmk(ny+1:end)-Ibar*ysp)'*Qybar*Dm0+...
-     (Ibar*xmk(1:ny)+Fx*xmk(ny+1:end)-Ibar*ysp)'*Qybar*Fu+(F^m*xmk(ny+1:end))'*Qbar*Futil ...
-     (Ibar*ysp-Fx*xmk(ny+1:end)-Ibar*xmk(1:ny))'*Qybar*Ibar];
-c = (Ibar*xmk(1:ny)+Fx*xmk(ny+1:end)-Ibar*ysp)'*Qybar*(Ibar*xmk(1:ny)+Fx*xmk(ny+1:end)-Ibar*ysp)+...
-     (F^m*xmk(ny+1:end))'*Qbar*(F^m*xmk(ny+1:end));
-
-% Including inequality constraints
-Aineq = [ Mtil zeros(m*nu,ny)
-         -Mtil zeros(m*nu,ny)];
-
-Bineq = [ Itil*(umax-uk_1)
-          Itil*(uk_1-umin) ];
-
-% Including equality constraints
-Aeq = [Dtil0 -eye(ny)];
-
-Beq = ysp-xmk(1:ny);
-
-% Including constraints of lower and upper bounds
-UB = [Itil*dumax; ones(ny,1)*Inf];
-LB = [-Itil*dumax; -ones(ny,1)*Inf];
-
-% options = optimset('display','iter')
-[dd,fvin,flagin]=quadprog(H,cf,Aineq,Bineq,Aeq,Beq,LB,UB);
-
-% storing calculated data
-fval(in) = dd'*H*dd + 2*cf*dd + c  ; % control cost value
-flag(in) = flagin                  ; % exitflag of exit condition of the MATLAB's quadprog routine
-duuk(:,in) = dd(1:m*nu)            ; % prediction of input moves
-sky(:,in)=dd(nu*m+1:m*nu+ny)       ; % slacks of outputs
-% ski(:,in)=dd(m*nu+ny+1:(m+1)*nu+ny); % slacks of inputs
-
-duk = dd(1:nu)   ; % receding horizon
-uk_1 = duk + uk_1; % inputs to be implemented in plant
-xpk = Ap*xpk+Bp*duk; % states of plant
-ypk = Cp*xpk      ; % output of plant
-xmk=xpk; % these should be computed through of state estimator (e.g Kalman filter)
-% ymk=C*xmk;
-yspp=[yspp ysp];
+    cf = [(Ibar*xmk(1:ny)+Fx*xmk(ny+1:end)-Ibar*ysp)'*Qybar*Dm0+...
+        (Ibar*xmk(1:ny)+Fx*xmk(ny+1:end)-Ibar*ysp)'*Qybar*Fu+(F^m*xmk(ny+1:end))'*Qbar*Futil ...
+        (Ibar*ysp-Fx*xmk(ny+1:end)-Ibar*xmk(1:ny))'*Qybar*Ibar];
+    c = (Ibar*xmk(1:ny)+Fx*xmk(ny+1:end)-Ibar*ysp)'*Qybar*(Ibar*xmk(1:ny)+Fx*xmk(ny+1:end)-Ibar*ysp)+...
+        (F^m*xmk(ny+1:end))'*Qbar*(F^m*xmk(ny+1:end));
+    
+    % Including inequality constraints
+    Aineq = [ Mtil zeros(m*nu,ny)
+        -Mtil zeros(m*nu,ny)];
+    
+    Bineq = [ Itil*(umax-uk_1)
+        Itil*(uk_1-umin) ];
+    
+    % Including equality constraints
+    Aeq = [Dtil0 -eye(ny)];
+    
+    Beq = ysp-xmk(1:ny);
+    
+    % Including constraints of lower and upper bounds
+    UB = [Itil*dumax; ones(ny,1)*Inf];
+    LB = [-Itil*dumax; -ones(ny,1)*Inf];
+    
+    % options = optimset('display','iter')
+    [dd,fvin,flagin]=quadprog(H,cf,Aineq,Bineq,Aeq,Beq,LB,UB);
+    
+    % storing calculated data
+    fval(in) = dd'*H*dd + 2*cf*dd + c  ; % control cost value
+    flag(in) = flagin                  ; % exitflag of exit condition of the MATLAB's quadprog routine
+    duuk(:,in) = dd(1:m*nu)            ; % prediction of input moves
+    sky(:,in)=dd(nu*m+1:m*nu+ny)       ; % slacks of outputs
+    % ski(:,in)=dd(m*nu+ny+1:(m+1)*nu+ny); % slacks of inputs
+    
+    duk = dd(1:nu)   ; % receding horizon
+    uk_1 = duk + uk_1; % inputs to be implemented in plant
+    xpk = Ap*xpk+Bp*duk; % states of plant
+    ypk = Cp*xpk      ; % output of plant
+    xmk=xpk; % these should be computed through of state estimator (e.g Kalman filter)
+    % ymk=C*xmk;
+    yspp=[yspp ysp];
 end
 
 nc=size(yr,1);
@@ -180,7 +180,7 @@ end
 nc=size(ur,1);
 figure(2)
 for j=1:nc
-subplot(nc,1,j)
+    subplot(nc,1,j)
     plot(ur(j,:),'k-')
     xlabel('tempo nT')
     in = num2str(j);
@@ -202,7 +202,7 @@ ylabel('Flag')
 nc=size(sky,1);
 figure(5)
 for j=1:nc
-subplot(nc,1,j)
+    subplot(nc,1,j)
     plot(sky(j,:),'k-')
     xlabel('tempo nT')
     in = num2str(j);

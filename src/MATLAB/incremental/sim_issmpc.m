@@ -10,12 +10,12 @@ u_ref = [680 265 130 80]';
 
 % MPC model
 Atil = [ 0.37067676 0.03019531 0.01725641
-      0.68652094 0.57037991 0.02130872
-      2.46894109 1.32869029 0.0664796  ];
+    0.68652094 0.57037991 0.02130872
+    2.46894109 1.32869029 0.0664796  ];
 
 Btil = [ -0.00726326 -0.01558     0.00369239  0.02208961
-       0.01693359  0.05265305  0.01081026 -0.07745152
-      -0.0253843  -0.09184406  0.04534568  0.24170092 ];
+    0.01693359  0.05265305  0.01081026 -0.07745152
+    -0.0253843  -0.09184406  0.04534568  0.24170092 ];
 
 Ctil = eye(3);
 
@@ -56,7 +56,7 @@ ysp=[];
 for in=1:nsim
     uk(:,in)=uk_1;
     yk(:,in)=ypk;
-
+    
     if in <= 20
         ys    = [0 0 0]';
     elseif in <= 80
@@ -66,19 +66,19 @@ for in=1:nsim
     else
         ys    = [1.3533336 -2.90826548 4.64134915]';
     end
-
-
+    
+    
     [dukk,Vk]=issmpc(p,m,nu,ny,q,r,A,B,C,umax,umin,dumax,ys,uk_1,xmk);
     duk=dukk(1:nu); % receding horizon
     Jk(in)=Vk; % control cost
-
+    
     %Correction of the last control input
     xmk=A*xmk+B*duk;
     ymk=C*xmk;
-
+    
     xpk=Ap*xpk+Bp*duk;
     ypk=Cp*xpk; % plant measurement
-
+    
     %Correction of the last measurement
     uk_1=duk+uk_1;
     ysp=[ysp ys];
@@ -100,7 +100,7 @@ end
 nc=size(uk,1);
 figure(2)
 for j=1:nc
-subplot(nc,1,j)
+    subplot(nc,1,j)
     plot(uk(j,:),'k-')
     xlabel('tempo nT')
     in = num2str(j);

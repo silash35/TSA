@@ -20,30 +20,30 @@ d0 = zeros(ny,nu);
 
 for i = 1:ny
     for j = 1:nu
-
+        
         [num,den] = tfdata(Gz(i,j),'v');
-
+        
         if all(num == 0)
             d = 0;
             r = 0;
         else
             [d,r] = residue(num,den);
         end
-
+        
         % termo direto (ganho est�tico)
         d0(i,j) = dcgain(Gz(i,j));
-
+        
         % res�duos din�micos
         ddaux = d(1:end-1);
         ddaux = [ddaux; zeros(na - length(ddaux),1)];
         dd(:,j) = ddaux;
-
+        
         % polos discretos
         faux = r(1:end-1);
         faux = [faux; zeros(na - length(faux),1)];
         f(:,j) = faux;
     end
-
+    
     Dd(:,:,i) = dd;
     F(:,:,i)  = f;
 end
@@ -74,10 +74,10 @@ nd = na*nu*ny;
 
 % modelo OPOM
 A = [ eye(ny)        zeros(ny,nd)
-      zeros(nd,ny)  F ];
+    zeros(nd,ny)  F ];
 
 B = [ d0
-      Dd*F*N ];
+    Dd*F*N ];
 
 C = [ eye(ny)  Psi ];
 

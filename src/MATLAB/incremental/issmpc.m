@@ -1,5 +1,5 @@
 function [duk,Jk]=issmpc(p,m,nu,ny,q,r,A,B,C,umax,umin,dumax,ys,uk_1,xmk)
-        
+
 %  Simulates the closed-loop system with MPC based on state-space model in the
 %  incremental form
 %  Output variables:
@@ -21,7 +21,7 @@ function [duk,Jk]=issmpc(p,m,nu,ny,q,r,A,B,C,umax,umin,dumax,ys,uk_1,xmk)
 
 ysp=[];
 for i=1:p;
-  ysp=[ysp;ys]; % set-point vector (p.ny x 1)
+    ysp=[ysp;ys]; % set-point vector (p.ny x 1)
 end
 
 Phi=[];
@@ -32,7 +32,7 @@ for k=1:p
 end
 a=tha;
 Dm=a;
-for iu=1:m-1; 
+for iu=1:m-1;
     a=[zeros(ny,nu);a(1:(p-1)*ny,:)];
     Dm=[Dm a];
 end
@@ -41,7 +41,7 @@ Theta=Dm; % dimension p*ny x m*nu
 %Matrices Qbar, Mtil, Itil and Rbar
 aux=[];
 for in=1:p;
-  aux=[aux q];
+    aux=[aux q];
 end
 Qbar=diag(aux);
 
@@ -66,9 +66,9 @@ Dumax=dumax;
 Umax=umax;
 Umin=umin;
 for i=1:m-1;
- Umax=[Umax;umax];
- Umin=[Umin;umin];
- Dumax=[Dumax;dumax];
+    Umax=[Umax;umax];
+    Umin=[Umin;umin];
+    Dumax=[Dumax;dumax];
 end
 
 % Parameters of QP
@@ -79,8 +79,7 @@ c = (Phi*xmk-ysp)'*Qbar*(Phi*xmk-ysp);
 % Inequality constraints Ain*x <= Bin
 Ain=[Mtil;-Mtil];
 Bin=[Umax-Itil*uk_1;Itil*uk_1-Umin];
-options=optimoptions('quadprog','display','off');  
+options=optimoptions('quadprog','display','off');
 dukk=quadprog(H,ct,Ain,Bin,[],[],-Dumax,Dumax,[],options); % optimal solution
 duk=dukk(1:nu); % receding horizon
 Jk=dukk'*H*dukk+2*ct*dukk+c; % control cost
-

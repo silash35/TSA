@@ -70,13 +70,13 @@ end
 % Matrices Qbar and Rbar
 aux=[];
 for in=1:p;
-  aux=[aux q];
+    aux=[aux q];
 end
 Qbar=diag(aux);
 
 clear aux; aux=[];
 for in=1:m;
-  aux=[aux r];
+    aux=[aux r];
 end
 Rbar=diag(aux);
 % Qbar,Rbar,pause
