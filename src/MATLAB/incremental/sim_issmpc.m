@@ -1,14 +1,17 @@
+% Control of a distillation column subsystem (Alvarez et al, 2009) with MPC
+%  basead on state-space model in the incremental form
 clear
 close all
 clc
 tic
-
 % Ponto de operação em variavel de engenharia
 % Usado como referência para definição de variáveis em desvio.
 y_ref = [66.61255271 89.50113667 93.26343938]';
 u_ref = [680 265 130 80]';
 
-% MPC model
+ny = 3;
+nu = 4;
+
 Atil = [ 0.37067676 0.03019531 0.01725641
     0.68652094 0.57037991 0.02130872
     2.46894109 1.32869029 0.0664796  ];
@@ -21,67 +24,69 @@ Ctil = eye(3);
 
 [A,B,C]=immpc(Atil,Btil,Ctil);
 
-% Plant model
-Aptil=Atil*1.00; Bptil=Btil*1.05; Cptil=Ctil;
-[Ap,Bp,Cp]=immpc(Aptil,Bptil,Cptil);
+Ap=A*1.00; Bp=B*1.05; Cp=C; % defining plant model
 
 % Updating the dimensions of variables
-nu=size(B,2); % Number of manipulated inputs
-ny=size(C,1); % Number of controlled outputs
 nx=size(A,1); % Number of system states
 
 % tuning parameters of MPC
-p=120;% Output prediction horizon
-m=5;% Input horizon
-nsim=200;% Simulation time in sampling periods
-
+p=120       ; % Output prediction horizon
+m=5         ; % Input horizon
+nsim=200    ; % Simulation time in sampling periods
 q=[1,1,1]   ; % Output weights
 r=[0.2 0.5 0.5 0.5] ; % Input moves weights
+
 umax=[715 265 140 115]' - u_ref; % maximum value for inputs
 umin=[600 187 130 80]' - u_ref; % minimum value for inputs
 dumax=[99999 99999 99999 99999]'; % maximum variation for input moves
 
 % Characteristics of process
-uss = [0 0 0 0]';
-yss = [0 0 0]';
+uss = [0 0 0 0]'; % steady-state of the inputs
+yss = [0 0 0]'; % steady-state of the outputs
 
 %  Defining the initial conditions (deviation variables)
-xmk=[0 0 0 0 0 0 0]';
+xmk=zeros(nx,1); % It starts the steady-state
 xpk=xmk;
 ypk=Cp*xpk;
-uk_1=[0 0 0 0]';
+uk_1=uss-uss;
+
+% State observer
+Kf = FKalman(ny,A,C,100);
 
 % Starting simulation
 ysp=[];
 for in=1:nsim
-    uk(:,in)=uk_1;
-    yk(:,in)=ypk;
-    
+    uk(:,in)=uk_1+uss;
+    yk(:,in)=ypk+yss;
+
     if in <= 20
-        ys    = [0 0 0]';
+        ys = [0; 0; 0];
     elseif in <= 80
-        ys    = [1.33809828 -5.23812909 4.01255568]';
+        ys = [1.33809828; -5.23812909; 4.01255568];
     elseif in <= 140
-        ys    = [0.48037208 -1.57549281  1.85025552]';
+        ys = [0.48037208; -1.57549281; 1.85025552];
     else
-        ys    = [1.3533336 -2.90826548 4.64134915]';
+        ys = [1.3533336; -2.90826548; 4.64134915];
     end
-    
-    
-    [dukk,Vk]=issmpc(p,m,nu,ny,q,r,A,B,C,umax,umin,dumax,ys,uk_1,xmk);
+
+    [dukk,Vk,flagin]=issmpc(p,m,nu,ny,q,r,A,B,C,umax-uss,umin-uss,dumax,ys-yss,uk_1,xmk);
     duk=dukk(1:nu); % receding horizon
     Jk(in)=Vk; % control cost
-    
+    flag(in)=flagin;
+
     %Correction of the last control input
-    xmk=A*xmk+B*duk;
-    ymk=C*xmk;
-    
-    xpk=Ap*xpk+Bp*duk;
-    ypk=Cp*xpk; % plant measurement
-    
-    %Correction of the last measurement
-    uk_1=duk+uk_1;
-    ysp=[ysp ys];
+     xmk=A*xmk+B*duk;
+     ymk=C*xmk;
+
+     xpk=Ap*xpk+Bp*duk;
+     ypk=Cp*xpk; % plant measurement
+
+
+  %Correction of the last measurement
+  de=ypk-ymk;
+  xmk=xmk+Kf*de;
+  uk_1=duk+uk_1;
+  ysp=[ysp ys];
 end
 
 nc=size(yk,1);
@@ -96,11 +101,12 @@ for j=1:nc
     yrot = ['y_' in];
     ylabel(yrot)
 end
+% legend('PV','set-point')
 
 nc=size(uk,1);
 figure(2)
 for j=1:nc
-    subplot(nc,1,j)
+subplot(nc,1,j)
     plot(uk(j,:),'k-')
     xlabel('tempo nT')
     in = num2str(j);
@@ -113,5 +119,8 @@ plot(Jk)
 xlabel('tempo nT')
 ylabel('Cost function')
 
+figure(4)
+plot(flag)
+xlabel('tempo nT')
+
 save('output.mat', 'uk', 'yk', 'ysp');
-toc
