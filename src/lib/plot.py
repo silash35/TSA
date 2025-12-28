@@ -49,14 +49,13 @@ def plot_comparison(cycles, real_y, model_y, model_name):
     plt.close()
 
 
-def plot_control(cycles, u, y, sp, u_sp, model_name: str):
+def plot_control(cycles, u, y, sp, model_name: str):
     # --- Criar subplots ---
-    _, axes = plt.subplots(2, 1, sharex=True, figsize=(10, 7))
+    _, axes = plt.subplots(2, 1, sharex=True, figsize=(16, 7))
 
     # Entradas
     for i in range(len(u_labels)):
         axes[0].plot(cycles, u[:, i], label=u_labels[i])
-        # axes[0].plot(cycles, u_sp[:, i], linestyle="--", color=colors[i], label=f"{u_labels[i]} (SP)")
 
     axes[0].set_ylabel("Duração da etapa / s")
 

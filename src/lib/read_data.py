@@ -14,7 +14,7 @@ u_labels = ["$t_{feed}$", "$t_{rinse}$", "$t_{blow}$", "$t_{purge}$"]
 y_labels = [
     "Pureza do H$_2$",
     "Pureza do CO$_2$",
-    "Recuperação CO$_2$",
+    "Recuperação de CO$_2$",
 ]
 
 purity_H2 = df["purity_H2"].values
