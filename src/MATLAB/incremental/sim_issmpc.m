@@ -22,7 +22,8 @@ Ctil = eye(3);
 [A,B,C]=immpc(Atil,Btil,Ctil);
 
 % Plant model
-Ap=A;Bp=B;Cp=C;
+Aptil=Atil*1.00; Bptil=Btil*1.05; Cptil=Ctil;
+[Ap,Bp,Cp]=immpc(Aptil,Bptil,Cptil);
 
 % Updating the dimensions of variables
 nu=size(B,2); % Number of manipulated inputs
@@ -31,11 +32,11 @@ nx=size(A,1); % Number of system states
 
 % tuning parameters of MPC
 p=120;% Output prediction horizon
-m=3;% Input horizon
-nsim=250;% Simulation time in sampling periods
+m=5;% Input horizon
+nsim=200;% Simulation time in sampling periods
 
 q=[1,1,1]   ; % Output weights
-r=[1,1,1,1] ; % Input moves weights
+r=[0.2 0.5 0.5 0.5] ; % Input moves weights
 umax=[715 265 140 115]' - u_ref; % maximum value for inputs
 umin=[600 187 130 80]' - u_ref; % minimum value for inputs
 dumax=[99999 99999 99999 99999]'; % maximum variation for input moves
@@ -45,10 +46,10 @@ uss = [0 0 0 0]';
 yss = [0 0 0]';
 
 %  Defining the initial conditions (deviation variables)
-xmk=[-2 2 3 -1 2 1 0]';
+xmk=[0 0 0 0 0 0 0]';
 xpk=xmk;
 ypk=Cp*xpk;
-uk_1=[-1 2 1 0]';
+uk_1=[0 0 0 0]';
 
 % Starting simulation
 ysp=[];
@@ -56,11 +57,16 @@ for in=1:nsim
     uk(:,in)=uk_1;
     yk(:,in)=ypk;
 
-    if in <= 100
-        ys=[0 0 0]'; % Set-point of the outputs
+    if in <= 20
+        ys    = [0 0 0]';
+    elseif in <= 80
+        ys    = [1.33809828 -5.23812909 4.01255568]';
+    elseif in <= 140
+        ys    = [0.48037208 -1.57549281  1.85025552]';
     else
-        ys=[2.60473585 -8.24649468 8.04911466]';
+        ys    = [1.3533336 -2.90826548 4.64134915]';
     end
+
 
     [dukk,Vk]=issmpc(p,m,nu,ny,q,r,A,B,C,umax,umin,dumax,ys,uk_1,xmk);
     duk=dukk(1:nu); % receding horizon

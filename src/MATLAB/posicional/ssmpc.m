@@ -104,10 +104,14 @@ end
 for in=1:nsim
     ur(:,in)=uk_1+uss;
     yr(:,in)=ypk+yss;
-    if in<= 100
-        ys=yss;
+    if in <= 20
+        ys = [0; 0; 0];
+    elseif in <= 80
+        ys = [1.33809828; -5.23812909; 4.01255568];
+    elseif in <= 140
+        ys = [0.48037208; -1.57549281; 1.85025552];
     else
-        ys=yspp;
+        ys = [1.3533336; -2.90826548; 4.64134915];
     end
     ysp=[];
     for i=1:p;

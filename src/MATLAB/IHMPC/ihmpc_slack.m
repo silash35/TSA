@@ -25,7 +25,7 @@ Gz = tf(sysd);
 
 
 [A,B,C,D0,Dd,F,Psi,N]=opom(Gz); % it creates opom model
-Ap=A; Bp=B; Cp=C;
+Ap=A*1.00; Bp=B*1.05; Cp=C;
 ny = size(C,1); % output variables of the system
 nu = size(B,2); % input variables of the system
 nx = size(A,1); % state variables of the system
@@ -34,11 +34,11 @@ nd = size(F,1); % states related to the stable pole of the system
 % parameters of the IHMPC
 sy = [1e3 1e3 1e3]; % weights of output slacks
 
-nsim = 250;      % simulation time
-m = 3;           % control horizon
+nsim = 200;      % simulation time
+m = 5;           % control horizon
 qy = [1 1 1];      % output weights
 qu = [];      % output weights
-r  = [1 1 1 1]; % move weights
+r  = [0.2 0.5 0.5 0.5]; % move weights
 
 umax=[715 265 140 115]' - u_ref; % maximum value for inputs
 umin=[600 187 130 80]' - u_ref; % minimum value for inputs
@@ -102,7 +102,7 @@ H = [(Dm0+Fu)'*Qybar*(Dm0+Fu)+Futil'*Qbar*Futil+Rbar -(Dm0+Fu)'*Qybar*Ibar
 % =========================================================================
 u0 = [0 0 0 0]';
 y0 = [0 0 0]';
-ysp=[0 0 0]';
+ysp= [0 0 0]';
 
 uk_1 = u0;
 
@@ -114,10 +114,14 @@ yspp=[];
 for in=1:nsim
 ur(:,in) = uk_1  ;
 yr(:,in) = ypk   ;
-    if in <= 100
-        ysp    = [0 0 0]'    ;
+    if in <= 20
+        ysp    = [0 0 0]';
+    elseif in <= 80
+        ysp    = [1.33809828 -5.23812909 4.01255568]';
+    elseif in <= 140
+        ysp    = [0.48037208 -1.57549281  1.85025552]';
     else
-        ysp    = [2.60473585 -8.24649468 8.04911466]'    ;
+        ysp    = [1.3533336 -2.90826548 4.64134915]';
     end
 cf = [(Ibar*xmk(1:ny)+Fx*xmk(ny+1:end)-Ibar*ysp)'*Qybar*Dm0+...
      (Ibar*xmk(1:ny)+Fx*xmk(ny+1:end)-Ibar*ysp)'*Qybar*Fu+(F^m*xmk(ny+1:end))'*Qbar*Futil ...
