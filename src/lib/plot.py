@@ -51,7 +51,14 @@ def plot_comparison(cycles, real_y, model_y, model_name):
 
 def plot_control(cycles, u, y, sp, model_name: str):
     # --- Criar subplots ---
-    _, axes = plt.subplots(2, 1, sharex=True, figsize=(16, 7))
+    _, axes = plt.subplots(
+        4,
+        1,
+        sharex=True,
+        figsize=(16, 9),
+        dpi=300,
+        height_ratios=[1, 0.5, 0.5, 0.5],
+    )
 
     # Entradas
     for i in range(len(u_labels)):
@@ -61,16 +68,16 @@ def plot_control(cycles, u, y, sp, model_name: str):
 
     # Saídas
     for i in range(len(y_labels)):
-        axes[1].plot(cycles, y[:, i], label=y_labels[i], color=colors[i])
-        axes[1].plot(
+        ax = axes[i + 1]
+        ax.plot(cycles, y[:, i], label=y_labels[i], color=colors[i])
+        ax.plot(
             cycles,
             sp[:, i],
             linestyle="--",
             color=colors[i],
             label=f"{y_labels[i]} (SP)",
         )
-
-    axes[1].set_ylabel("KPIs / %")
+        ax.set_ylabel("KPI / %")
 
     axes[-1].set_xlabel("Ciclo")
     for ax in axes:
